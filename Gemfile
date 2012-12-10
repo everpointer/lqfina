@@ -27,8 +27,8 @@ group :assets do
   gem "therubyracer"
   gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
   
-  gem 'bootstrap-sass', '~> 2.2.1.1'
-  # gem "twitter-bootstrap-rails"
+  # gem 'bootstrap-sass', '~> 2.2.1.1'
+  gem "twitter-bootstrap-rails"
 end
 
 # bootstrap, dont' put those on group :assets
