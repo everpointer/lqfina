@@ -1,4 +1,11 @@
 LqFinance::Application.routes.draw do
+  get "group_buy/index"
+
+  resources :businesses
+  resources :group_buys
+
+  root :to =>  "group_buys#index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

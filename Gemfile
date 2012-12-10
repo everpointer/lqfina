@@ -5,7 +5,11 @@ gem 'rails', '3.2.9'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+gem 'sqlite3', :group => [:development, :test]
+# heroku doesn't support sqlite3 but PostgreSQL database => pg
+group :production do
+  gem 'pg'
+end
 
 
 # Gems used only for assets and not required
@@ -18,9 +22,32 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+
+  # gems for twitter-bootstrap-rails
+  gem "therubyracer"
+  gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+  
+  gem 'bootstrap-sass', '~> 2.2.1.1'
+  # gem "twitter-bootstrap-rails"
 end
 
+# bootstrap, dont' put those on group :assets
+# which won't required in production, :assets only for realtime compiling
+gem 'bootstrap_helper'
+
 gem 'jquery-rails'
+
+group :test, :development do
+    gem 'rspec-rails'
+    gem 'capybara', '~> 1.1.4'
+    gem 'capybara-webkit'
+    gem 'guard-rspec'
+    gem 'spork'
+    gem 'guard-spork'
+    gem 'launchy'
+    #gem 'factory_girl_rails'
+    gem 'database_cleaner'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -36,3 +63,9 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+# guard-rspec dependencies
+gem 'rb-fsevent', '~> 0.9.1'
+
+# 表单
+gem "simple_form"

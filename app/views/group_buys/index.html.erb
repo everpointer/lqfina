@@ -1,0 +1,16 @@
+<form action="#" class="form_inline">
+    
+</form>
+
+<table id="group_buy_record_table" class="table table-striper table-bordered">
+    <%= content_tag_for(:tr, @group_buys) do |group_buy| %>
+        <td></td>
+        <td><%= group_buy.product_name %></td>
+        <td><%= group_buy.settle_type %></td>
+        <td><%= group_buy.settle_nums %></td>
+        <td><%= group_buy.settle_money %></td>
+        <td><%= group_buy.refund_nums %></td>
+        <td><%= group_buy.updated_at %></td>
+        <td><%= group_buy.state %></td>
+    <% end %>
+</table>
