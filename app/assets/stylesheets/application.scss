@@ -11,3 +11,9 @@
  *= require bootstrap_and_overrides
  *= require_self
  */
+/*
+ * style variable and mixin defination
+ */
+.stat_wrapper {
+    width: 980px;
+}

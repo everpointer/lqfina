@@ -48,11 +48,10 @@ describe "GroupBuys" do
 
         click_button "新增"
       end
-
       current_path.should == group_buys_path
 
-      # save_and_open_page
       within "#group_buy_record_table" do
+        all("tr").length.should > 0
         all("tr")[0].find(".product_name").text.should == "测试项目1"
         all("tr")[0].find(".settle_nums").text.should == "1001"
         all("tr")[0].find(".refund_nums").text.should == "100"

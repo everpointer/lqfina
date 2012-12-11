@@ -1,0 +1,24 @@
+<div class="stat_wrapper product_box">
+    <div id="product_info" class="pull-left span4">
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam laudantium ratione dicta molestiae perferendis eius id repellendus cumque iusto assumenda tempore necessitatibus tempora dolorum a obcaecati pariatur placeat unde natus doloremque odit provident officiis quos adipisci. Quae aliquid modi quia voluptates ducimus repellat ea ab non necessitatibus quis nemo excepturi.
+        </p>
+    </div>
+
+    <%= simple_form_for @group_buy, :html => {:class => 'form_horizontal pull-right span4'} do |f| %>
+        <fieldset>
+            <% if !params[:product_name].blank? %>
+                <% if product_is_prepay?(params[:product_name]) %>
+                    <%= f.input :settle_nums, :label => "销售份数"%>
+                    <%= hidden_field_tag 'is_prepay', true %>
+                <% else %> 
+                    <%= f.input :settle_nums, :label => "结算份数"%>
+                    <%= f.input :refund_nums, :label => "退款份数"%>
+                <% end %>
+                <%= f.submit :value => "新增", :class => "btn btn-primary" %>
+                <%= hidden_field_tag 'product_name', params[:product_name] %>
+                <%= hidden_field_tag 'stat_date', params[:stat_date] %>
+            <% end %>
+        </fieldset>
+    <% end %>
+</div>

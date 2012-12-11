@@ -1,3 +1,21 @@
 // Place all the styles related to the group_buy controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "style";
+
+div.stat_action_bar_wrapper {
+    border: $stat_border;
+    padding: 20px;
+
+    form#stat_action_bar {
+        margin: 0;
+    }
+}
+
+.product_box {
+    height: 240px;
+}
+
+.group_buy_table_wrapper {
+
+}

@@ -3,12 +3,15 @@
 <head>
   <title>LqFinance</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= controller_stylesheet_link_tag %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+    <%= render "common/app_nav" %>
+    <%= yield %>
 
-<%= yield %>
-
+    <%= environment_javascript_include_tag %>
+    <%= javascript_include_tag "application" %>
+    <%= controller_javascript_include_tag %>
 </body>
 </html>

@@ -10,8 +10,6 @@ class GroupBuysController < ApplicationController
     def create
       groupbuy = {}
       groupbuy['product_name'] = params[:product_name]
-      print params.inspect
-      print params[:is_prepay].inspect
       if params[:is_prepay] == "true"
         print "in true"
         groupbuy['settle_type'] = "预付"
@@ -25,7 +23,8 @@ class GroupBuysController < ApplicationController
 
       GroupBuy.create groupbuy
 
-      redirect_to group_buys_path
+      # redirect_to group_buys_path + "?product_name=#{params[:product_name]}&stat_date=#{params[:stat_date]}"
+      redirect_to :back
     end
 
     def init_product_list

@@ -1,0 +1,9 @@
+<div class="stat_wrapper stat_action_bar_wrapper">
+    <form action="/group_buys" class="form_inline" id="stat_action_bar">
+        <input type="text" id="stat_date" name="stat_date" placeholder="统计年月,格式：yyyy-mm">
+        <select name="product_name" id="product_list">
+            <%= options_from_collection_for_select(@total_product_list, "name", "name") %>
+        </select>
+        <button id="search_stat_result" class="btn btn-primary">查询</button>
+    </form>
+</div>
