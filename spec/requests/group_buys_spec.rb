@@ -2,6 +2,10 @@
 require 'spec_helper'
 
 describe "GroupBuys" do
+  before :each do
+    Product.create :name => "测试项目1", :online_date => "2012-12-01 08:00:00"
+  end
+
   describe "GET /group_buys" do
     it "sees current month's settle record" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
@@ -12,16 +16,16 @@ describe "GroupBuys" do
 
       within "#stat_action_bar" do
         fill_in "stat_date",  :with => DateTime.now.strftime('%Y-%m')
+        select '测试项目1', :from => 'product_list'
         click_button '查询'
       end
 
-      # post group_buys_path, :stat_date => "2012-12"
       current_path.should == group_buys_path
 
       within "#group_buy_record_table" do
-        find("tr:first").should have_content "测试项目1"
+        # all("tr").should have_content "测试项目1"
+        all("tr").length.should == 1
       end
-
     end
   end
 end
