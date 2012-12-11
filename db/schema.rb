@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210123438) do
+ActiveRecord::Schema.define(:version => 20121211025027) do
 
   create_table "businesses", :force => true do |t|
     t.string   "busi_type"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20121210123438) do
     t.datetime "online_date"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.boolean  "is_prepay"
   end
 
 end

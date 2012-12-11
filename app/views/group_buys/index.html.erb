@@ -6,14 +6,36 @@
     <button id="search_stat_result" class="btn btn-primary">查询</button>
 </form>
 
+<div id="product_info">
+    <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam laudantium ratione dicta molestiae perferendis eius id repellendus cumque iusto assumenda tempore necessitatibus tempora dolorum a obcaecati pariatur placeat unde natus doloremque odit provident officiis quos adipisci. Quae aliquid modi quia voluptates ducimus repellat ea ab non necessitatibus quis nemo excepturi.
+    </p>
+</div>
+
+<%= simple_form_for @group_buy, :html => {:class => 'form_horizontal'} do |f| %>
+    <fieldset>
+        <% if !params[:product_name].blank? %>
+            <% if product_is_prepay?(params[:product_name]) %>
+                <%= f.input :settle_nums, :label => "销售份数"%>
+                <%= hidden_field_tag 'is_prepay', true %>
+            <% else %> 
+                <%= f.input :settle_nums, :label => "结算份数"%>
+                <%= f.input :refund_nums, :label => "退款份数"%>
+            <% end %>
+            <%= f.submit :value => "新增", :class => "btn btn-primary" %>
+            <%= hidden_field_tag 'product_name', params[:product_name] %>
+        <% end %>
+    </fieldset>
+<% end %>
+
 <table id="group_buy_record_table" class="table table-striper table-bordered">
     <%= content_tag_for(:tr, @group_buys) do |group_buy| %>
         <td></td>
-        <td><%= group_buy.product_name %></td>
+        <td class="product_name"><%= group_buy.product_name %></td>
         <td><%= group_buy.settle_type %></td>
-        <td><%= group_buy.settle_nums %></td>
+        <td class="settle_nums"><%= group_buy.settle_nums %></td>
         <td><%= group_buy.settle_money %></td>
-        <td><%= group_buy.refund_nums %></td>
+        <td class="refund_nums"><%= group_buy.refund_nums %></td>
         <td><%= group_buy.updated_at %></td>
         <td><%= group_buy.state %></td>
     <% end %>

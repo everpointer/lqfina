@@ -1,10 +1,20 @@
 # encoding: utf-8
 require 'spec_helper'
 
+def search_a_product(product_name)
+  within "#stat_action_bar" do
+        fill_in "stat_date",  :with => DateTime.now.strftime('%Y-%m')
+        select product_name, :from => 'product_list'
+        click_button '查询'
+  end 
+end
+
 describe "GroupBuys" do
   before :each do
-    Product.create :name => "测试项目1", :online_date => "2012-12-01 08:00:00"
+    Product.create :name => "测试项目1", :online_date => "2012-12-01 08:00:00", :is_prepay => false
+    Product.create :name => "测试项目2", :online_date => "2012-12-01 08:00:00", :is_prepay => true
   end
+
 
   describe "GET /group_buys" do
     it "sees current month's settle record" do
@@ -14,11 +24,7 @@ describe "GroupBuys" do
 
       visit group_buys_path
 
-      within "#stat_action_bar" do
-        fill_in "stat_date",  :with => DateTime.now.strftime('%Y-%m')
-        select '测试项目1', :from => 'product_list'
-        click_button '查询'
-      end
+      search_a_product "测试项目1"
 
       current_path.should == group_buys_path
 
@@ -27,5 +33,32 @@ describe "GroupBuys" do
         all("tr").length.should == 1
       end
     end
+
+    it "adds a product's prepay record" do
+      visit group_buys_path
+
+      search_a_product "测试项目1"
+
+      current_path.should == group_buys_path
+
+      # save_and_open_page
+      within "#new_group_buy" do
+        fill_in 'group_buy_settle_nums', :with => 1001
+        fill_in 'group_buy_refund_nums', :with => 100
+
+        click_button "新增"
+      end
+
+      current_path.should == group_buys_path
+
+      # save_and_open_page
+      within "#group_buy_record_table" do
+        all("tr")[0].find(".product_name").text.should == "测试项目1"
+        all("tr")[0].find(".settle_nums").text.should == "1001"
+        all("tr")[0].find(".refund_nums").text.should == "100"
+      end
+    end
+
+
   end
 end

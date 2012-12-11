@@ -6,5 +6,7 @@ class CreateProducts < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_column :is_prepay, :boolean
   end
 end
