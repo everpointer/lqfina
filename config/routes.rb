@@ -4,6 +4,8 @@ LqFinance::Application.routes.draw do
   resources :businesses
   resources :group_buys
 
+  match 'group_buys/confirm_record' => "group_buys#confirm_record"
+
   root :to =>  "group_buys#index"
 
   # The priority is based upon order of creation:

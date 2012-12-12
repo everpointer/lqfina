@@ -20,6 +20,8 @@ Spork.prefork do
   # capybara-webkit
   Capybara.javascript_driver = :webkit
   Capybara.current_driver = Capybara.javascript_driver
+  # Capybara.javascript_driver = :selenium
+  # Capybara.current_driver = :selenium
   Capybara.run_server = true
   Capybara.server_port = 7777
 

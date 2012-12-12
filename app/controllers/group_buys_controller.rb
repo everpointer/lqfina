@@ -27,6 +27,29 @@ class GroupBuysController < ApplicationController
       redirect_to :back
     end
 
+    def confirm_record
+      groupbuy_id_list = JSON.parse(params[:groupbuy_id_list])
+      print groupbuy_id_list
+
+      if !groupbuy_id_list.blank?
+        hanlded_id_list = []
+        result = GroupBuy.find(groupbuy_id_list).each do |group_buy|
+          group_buy.state = "已处理"
+          group_buy.save
+          hanlded_id_list << group_buy.id
+        end
+        respond_to do |format|
+          format.html do
+            redirect_to :back 
+          end
+          format.json { render :json => hanlded_id_list.as_json }
+          format.js { render :nothing => true }
+        end
+      else
+       redirect_to :back 
+      end
+    end
+
     def init_product_list
       @total_product_list = Product.all
     end
@@ -63,9 +86,9 @@ class GroupBuysController < ApplicationController
       end
 
       if !clause.blank?
-        @group_buys = GroupBuy.where clause
+        @group_buys = GroupBuy.where(clause).order("updated_at desc")
       else
-        @group_buys = GroupBuy.all
+        @group_buys = GroupBuy.order("updated_at desc").all
       end
       # print "length:" + @group_buys.length.to_s
       # @group_buys = GroupBuy.all
