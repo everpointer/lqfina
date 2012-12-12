@@ -1,9 +1,10 @@
+# encoding: utf-8
 module GroupBuysHelper
   def product_is_prepay?(product_name)
       if !product_name.blank?
-        product = Product.where("name = ?", params[:product_name])
-        if !product
-          return product[:is_prepay]
+        products = Product.where("name = ?", product_name).limit(1)
+        if products.length > 0
+          return products[0][:is_prepay]
         else
           return nil
         end
