@@ -68,11 +68,16 @@ describe "GroupBuys" do
 
       within ".group_buy_table_wrapper" do
         find("tbody tr:first td input[type='checkbox']").set true
-
         find("#confirm_handle").click
-
         current_path.should == group_buys_path
+        save_and_open_page
         find("tbody tr:first td.settle_state").text.should == "已处理"
+
+        find("tbody tr:first td input[type='checkbox']").set true
+        find("#cancel_handle").click
+        current_path.should == group_buys_path
+        save_and_open_page
+        find("tbody tr:first td.settle_state").text.should == "未处理"
       end
     end
   end

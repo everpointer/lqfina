@@ -29,12 +29,18 @@ class GroupBuysController < ApplicationController
 
     def confirm_record
       groupbuy_id_list = JSON.parse(params[:groupbuy_id_list])
-      print groupbuy_id_list
+      confirm_flag =  params[:confirm_flag]
+
+      if confirm_flag == "true"
+        settle_state = "已处理"
+      else
+        settle_state = "未处理"
+      end
 
       if !groupbuy_id_list.blank?
         hanlded_id_list = []
         result = GroupBuy.find(groupbuy_id_list).each do |group_buy|
-          group_buy.state = "已处理"
+          group_buy.state = settle_state
           group_buy.save
           hanlded_id_list << group_buy.id
         end
