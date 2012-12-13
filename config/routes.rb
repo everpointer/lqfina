@@ -1,4 +1,7 @@
 LqFinance::Application.routes.draw do
+  resources :products
+
+
   get "group_buy/index"
 
   resources :businesses

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121211025027) do
+ActiveRecord::Schema.define(:version => 20121213034248) do
 
   create_table "businesses", :force => true do |t|
     t.string   "busi_type"
@@ -33,10 +33,18 @@ ActiveRecord::Schema.define(:version => 20121211025027) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
-    t.datetime "online_date"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.string   "foreign_product_id"
+    t.string   "busi_type"
+    t.string   "platform"
+    t.float    "selled_price"
+    t.float    "settle_price"
     t.boolean  "is_prepay"
+    t.float    "prepay_percentage"
+    t.datetime "begin_date"
+    t.datetime "end_date"
+    t.integer  "selled_nums"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
 end

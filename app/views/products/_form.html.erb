@@ -1,0 +1,61 @@
+<%= simple_form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :foreign_product_id %><br />
+    <%= f.text_field :foreign_product_id %>
+  </div>
+  <div class="field">
+    <%= f.label :busi_type %><br />
+    <%= f.text_field :busi_type %>
+  </div>
+  <div class="field">
+    <%= f.label :platform %><br />
+    <%= f.text_field :platform %>
+  </div>
+  <div class="field">
+    <%= f.label :selled_price %><br />
+    <%= f.text_field :selled_price %>
+  </div>
+  <div class="field">
+    <%= f.label :settle_price %><br />
+    <%= f.text_field :settle_price %>
+  </div>
+  <div class="field">
+    <%= f.label :is_prepay %><br />
+    <%= f.check_box :is_prepay %>
+  </div>
+  <div class="field">
+    <%= f.label :prepay_percentage %><br />
+    <%= f.text_field :prepay_percentage %>
+  </div>
+  <div class="field">
+    <%= f.label :begin_date %><br />
+    <%= f.datetime_select :begin_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br />
+    <%= f.datetime_select :end_date %>
+  </div>
+  <div class="field">
+    <%= f.label :selled_nums %><br />
+    <%= f.number_field :selled_nums %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

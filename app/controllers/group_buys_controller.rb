@@ -1,5 +1,6 @@
 # encoding: utf-8
 class GroupBuysController < ApplicationController
+    before_filter :init_variable, :only=>[:index]
     before_filter :init_product_list, :only=>[:index]
     before_filter :init_record_add_form, :only=>[:index]
     before_filter :init_stat_records, :only=>[:index]
@@ -11,7 +12,6 @@ class GroupBuysController < ApplicationController
       groupbuy = {}
       groupbuy['product_name'] = params[:product_name]
       if params[:is_prepay] == "true"
-        print "in true"
         groupbuy['settle_type'] = "预付"
         groupbuy['settle_nums'] = params[:group_buy][:settle_nums]
       else
@@ -56,6 +56,14 @@ class GroupBuysController < ApplicationController
       end
     end
 
+    def init_variable
+      if params[:stat_date].blank?
+        @current_year_month = DateTime.now.strftime('%Y-%m')
+      else
+        @current_year_month = params[:stat_date]
+      end
+    end
+
     def init_product_list
       @total_product_list = Product.all
     end
@@ -79,24 +87,22 @@ class GroupBuysController < ApplicationController
 
     def init_stat_records
       clause = {}
-      if !params[:stat_date].blank?
+      # if !params[:stat_date].blank?
         # Date can't parse 'yyyy-mm' format
-        stat_date = Date.parse params[:stat_date] + "-01"
+      stat_date = Date.parse @current_year_month + "-01"
 
-        begin_date = stat_date.beginning_of_month().strftime("%Y-%m-%d")
-        end_date = stat_date.end_of_month().strftime("%Y-%m-%d")
-        clause[:updated_at] = begin_date..end_date
-      end
+      begin_date = stat_date.beginning_of_month().strftime("%Y-%m-%d")
+      end_date = stat_date.end_of_month().strftime("%Y-%m-%d")
+      clause[:updated_at] = begin_date..end_date
+      # end
       if !params[:product_name].blank?
         clause[:product_name] = params[:product_name]
       end
 
       if !clause.blank?
-        @group_buys = GroupBuy.where(clause).order("updated_at desc")
+        @group_buys = GroupBuy.where(clause).order("product_name, updated_at desc")
       else
-        @group_buys = GroupBuy.order("updated_at desc").all
+        @group_buys = GroupBuy.order("product_name, updated_at desc").all
       end
-      # print "length:" + @group_buys.length.to_s
-      # @group_buys = GroupBuy.all
     end
 end

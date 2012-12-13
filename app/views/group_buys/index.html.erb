@@ -3,40 +3,38 @@
 
 <%= render 'product_box' %>
 
-<% if !params[:stat_date].blank? %>
-    <div class="stat_wrapper group_buy_table_wrapper">
-        <h4><%= Date.parse(params[:stat_date] + "-01").strftime("%m") %>月份团购业务统计记录</h4>
-        <table id="group_buy_record_table" class="table table-stripe table-bordered table-hover table_wrapper">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>项目名</th> <th>结算类型</th> <th>结算份数</th> <th>结算金额</th>
-                    <th>退款份数</th> <th>操作时间</th> <th>状态</th>
-                </tr>
-            </thead>
-            <tbody>
-            <%= content_tag_for(:tr, @group_buys) do |group_buy| %>
-                <td class="check_box">
-                    <input type="checkbox">
-                    <input type='hidden' class='groupbuy_id' value=<%= group_buy['id'] %>>
-                </td>
-                <td class="product_name"><%= group_buy.product_name %></td>
-                <td><%= group_buy.settle_type %></td>
-                <td class="settle_nums"><%= group_buy.settle_nums %></td>
-                <td><%= group_buy.settle_money %></td>
-                <td class="refund_nums"><%= group_buy.refund_nums %></td>
-                <td><%= group_buy.updated_at %></td>
-                <td class="settle_state"><%= group_buy.state %></td>
-            <% end %>
-            </tbody>
-        </table>
-        <div class="table_bottom_bar">
-            <div class="btn-group">
-                <button class="btn" id="confirm_handle">确认处理</button>
-                <button class="btn" id="cancel_handle">取消处理</button>
-                <button class="btn" id="export_finance_output_list">导出财务打款列表</button>
-                <button class="btn" id="export_bank_output_list">导出银行对接列表</button>
-            </div>
+<div class="stat_wrapper group_buy_table_wrapper">
+    <h4><%= Date.parse(@current_year_month + "-01").strftime("%m") %>月份团购业务统计记录</h4>
+    <table id="group_buy_record_table" class="table table-stripe table-bordered table-hover table_wrapper">
+        <thead>
+            <tr>
+                <th></th>
+                <th>项目名</th> <th>结算类型</th> <th>结算份数</th> <th>结算金额</th>
+                <th>退款份数</th> <th>操作时间</th> <th>状态</th>
+            </tr>
+        </thead>
+        <tbody>
+        <%= content_tag_for(:tr, @group_buys) do |group_buy| %>
+            <td class="check_box">
+                <input type="checkbox">
+                <input type='hidden' class='groupbuy_id' value=<%= group_buy['id'] %>>
+            </td>
+            <td class="product_name"><%= group_buy.product_name %></td>
+            <td><%= group_buy.settle_type %></td>
+            <td class="settle_nums"><%= group_buy.settle_nums %></td>
+            <td><%= group_buy.settle_money %></td>
+            <td class="refund_nums"><%= group_buy.refund_nums %></td>
+            <td><%= group_buy.updated_at %></td>
+            <td class="settle_state"><%= group_buy.state %></td>
+        <% end %>
+        </tbody>
+    </table>
+    <div class="table_bottom_bar">
+        <div class="btn-group">
+            <button class="btn" id="confirm_handle">确认处理</button>
+            <button class="btn" id="cancel_handle">取消处理</button>
+            <button class="btn" id="export_finance_output_list">导出财务打款列表</button>
+            <button class="btn" id="export_bank_output_list">导出银行对接列表</button>
         </div>
     </div>
-<% end %>
+</div>

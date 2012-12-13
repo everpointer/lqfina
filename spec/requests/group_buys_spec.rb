@@ -11,8 +11,8 @@ end
 
 describe "GroupBuys" do
   before :each do
-    Product.create :name => "测试项目1", :online_date => "2012-12-01 08:00:00", :is_prepay => false
-    Product.create :name => "测试项目2", :online_date => "2012-12-01 08:00:00", :is_prepay => true
+    Product.create :name => "测试项目1", :begin_date => "2012-12-01 08:00:00", :is_prepay => false
+    Product.create :name => "测试项目2", :begin_date => "2012-12-01 08:00:00", :is_prepay => true
 
     GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
     GroupBuy.create :product_name => "测试项目2", :settle_type => "结算", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
@@ -70,13 +70,11 @@ describe "GroupBuys" do
         find("tbody tr:first td input[type='checkbox']").set true
         find("#confirm_handle").click
         current_path.should == group_buys_path
-        save_and_open_page
         find("tbody tr:first td.settle_state").text.should == "已处理"
 
         find("tbody tr:first td input[type='checkbox']").set true
         find("#cancel_handle").click
         current_path.should == group_buys_path
-        save_and_open_page
         find("tbody tr:first td.settle_state").text.should == "未处理"
       end
     end

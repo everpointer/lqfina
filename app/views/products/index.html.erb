@@ -1,0 +1,43 @@
+<h1>Listing products</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Foreign product</th>
+    <th>Busi type</th>
+    <th>Platform</th>
+    <th>Selled price</th>
+    <th>Settle price</th>
+    <th>Is prepay</th>
+    <th>Prepay percentage</th>
+    <th>Begin date</th>
+    <th>End date</th>
+    <th>Selled nums</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @products.each do |product| %>
+  <tr>
+    <td><%= product.name %></td>
+    <td><%= product.foreign_product_id %></td>
+    <td><%= product.busi_type %></td>
+    <td><%= product.platform %></td>
+    <td><%= product.selled_price %></td>
+    <td><%= product.settle_price %></td>
+    <td><%= product.is_prepay %></td>
+    <td><%= product.prepay_percentage %></td>
+    <td><%= product.begin_date %></td>
+    <td><%= product.end_date %></td>
+    <td><%= product.selled_nums %></td>
+    <td><%= link_to 'Show', product %></td>
+    <td><%= link_to 'Edit', edit_product_path(product) %></td>
+    <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Product', new_product_path %>

@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @product.name %>
+</p>
+
+<p>
+  <b>Foreign product:</b>
+  <%= @product.foreign_product_id %>
+</p>
+
+<p>
+  <b>Busi type:</b>
+  <%= @product.busi_type %>
+</p>
+
+<p>
+  <b>Platform:</b>
+  <%= @product.platform %>
+</p>
+
+<p>
+  <b>Selled price:</b>
+  <%= @product.selled_price %>
+</p>
+
+<p>
+  <b>Settle price:</b>
+  <%= @product.settle_price %>
+</p>
+
+<p>
+  <b>Is prepay:</b>
+  <%= @product.is_prepay %>
+</p>
+
+<p>
+  <b>Prepay percentage:</b>
+  <%= @product.prepay_percentage %>
+</p>
+
+<p>
+  <b>Begin date:</b>
+  <%= @product.begin_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @product.end_date %>
+</p>
+
+<p>
+  <b>Selled nums:</b>
+  <%= @product.selled_nums %>
+</p>
+
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>
