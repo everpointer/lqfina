@@ -9,8 +9,8 @@ class CreateProducts < ActiveRecord::Migration
       t.float :settle_price
       t.boolean :is_prepay
       t.float :prepay_percentage
-      t.datetime :begin_date
-      t.datetime :end_date
+      t.date :begin_date
+      t.date :end_date
       t.integer :selled_nums
 
       t.timestamps

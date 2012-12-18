@@ -34,6 +34,7 @@ end
 # bootstrap, dont' put those on group :assets
 # which won't required in production, :assets only for realtime compiling
 gem 'bootstrap_helper'
+gem 'bootstrap-datepicker-rails'
 
 gem 'jquery-rails'
 

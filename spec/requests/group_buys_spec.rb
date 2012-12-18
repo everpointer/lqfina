@@ -11,8 +11,29 @@ end
 
 describe "GroupBuys" do
   before :each do
-    Product.create :name => "测试项目1", :begin_date => "2012-12-01 08:00:00", :is_prepay => false
-    Product.create :name => "测试项目2", :begin_date => "2012-12-01 08:00:00", :is_prepay => true
+    Product.create :name => "测试项目1",
+      :foreign_product_id => '1',
+      :busi_type => "团购",
+      :platform => "聚划算",
+      :selled_price => 100,
+      :settle_price => 50,
+      :is_prepay => false,
+      :prepay_percentage => 0.5,
+      :begin_date => Date.today,
+      :end_date => Date.today.next_month,
+      :selled_nums => 100
+
+    Product.create :name => "测试项目2",
+      :foreign_product_id => '1',
+      :busi_type => "团购",
+      :platform => "聚划算",
+      :selled_price => 100,
+      :settle_price => 50,
+      :is_prepay => false,
+      :prepay_percentage => 0.5,
+      :begin_date => Date.today,
+      :end_date => Date.today.next_month,
+      :selled_nums => 100
 
     GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
     GroupBuy.create :product_name => "测试项目2", :settle_type => "结算", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"

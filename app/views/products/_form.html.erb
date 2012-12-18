@@ -1,61 +1,18 @@
-<%= simple_form_for(@product) do |f| %>
-  <% if @product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
-
-      <ul>
-      <% @product.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :foreign_product_id %><br />
-    <%= f.text_field :foreign_product_id %>
-  </div>
-  <div class="field">
-    <%= f.label :busi_type %><br />
-    <%= f.text_field :busi_type %>
-  </div>
-  <div class="field">
-    <%= f.label :platform %><br />
-    <%= f.text_field :platform %>
-  </div>
-  <div class="field">
-    <%= f.label :selled_price %><br />
-    <%= f.text_field :selled_price %>
-  </div>
-  <div class="field">
-    <%= f.label :settle_price %><br />
-    <%= f.text_field :settle_price %>
-  </div>
-  <div class="field">
-    <%= f.label :is_prepay %><br />
-    <%= f.check_box :is_prepay %>
-  </div>
-  <div class="field">
-    <%= f.label :prepay_percentage %><br />
-    <%= f.text_field :prepay_percentage %>
-  </div>
-  <div class="field">
-    <%= f.label :begin_date %><br />
-    <%= f.datetime_select :begin_date %>
-  </div>
-  <div class="field">
-    <%= f.label :end_date %><br />
-    <%= f.datetime_select :end_date %>
-  </div>
-  <div class="field">
-    <%= f.label :selled_nums %><br />
-    <%= f.number_field :selled_nums %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+<%= simple_form_for @product, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :name, :label => t("products.name") %>
+  <%= f.input :foreign_product_id, :label => t("products.foreign_product_id") %>
+  <%= f.input :busi_type, :label => t("products.busi_type") %>
+  <%= f.input :platform, :label => t("products.platform") %>
+  <%= f.input :selled_price, :label => t("products.selled_price") %>
+  <%= f.input :settle_price, :label => t("products.settle_price") %>
+  <%= f.input :is_prepay, :label => t("products.is_prepay") %>
+  <%= f.input :prepay_percentage, :label => t("products.prepay_percentage") %>
+  <%= f.input :begin_date, :as => :string, :label => t("products.begin_date"), :input_html => {:class => 'datepicker'}%>
+  <%= f.input :end_date, :as => :string, :label => t("products.end_date"), :input_html => {:class => 'datepicker'} %>
+  <%= f.input :selled_nums, :label => t("products.selled_nums") %>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary', :value => t("products.create_product") %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                products_path, :class => 'btn' %>
   </div>
 <% end %>

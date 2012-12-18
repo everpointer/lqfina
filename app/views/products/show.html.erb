@@ -1,60 +1,39 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Product -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => t('activerecord.models.product') %></h1>
+</div>
 
-<p>
-  <b>Name:</b>
-  <%= @product.name %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= t('products.name') %>:</strong></dt>
+  <dd><%= @product.name %></dd>
+  <dt><strong><%= t('products.busi_type') %>:</strong></dt>
+  <dd><%= @product.busi_type %></dd>
+  <dt><strong><%= t('products.platform') %>:</strong></dt>
+  <dd><%= @product.platform %></dd>
+  <dt><strong><%= t('products.selled_price') %>:</strong></dt>
+  <dd><%= @product.selled_price %></dd>
+  <dt><strong><%= t('products.settle_price') %>:</strong></dt>
+  <dd><%= @product.settle_price %></dd>
+  <dt><strong><%= t('products.is_prepay') %>:</strong></dt>
+  <dd><%= @product.is_prepay %></dd>
+  <dt><strong><%= t('products.prepay_percentage') %>:</strong></dt>
+  <dd><%= @product.prepay_percentage %></dd>
+  <dt><strong><%= t('products.begin_date') %>:</strong></dt>
+  <dd><%= @product.begin_date %></dd>
+  <dt><strong><%= t('products.end_date') %>:</strong></dt>
+  <dd><%= @product.end_date %></dd>
+  <dt><strong><%= t('products.selled_nums') %>:</strong></dt>
+  <dd><%= @product.selled_nums %></dd>
+</dl>
 
-<p>
-  <b>Foreign product:</b>
-  <%= @product.foreign_product_id %>
-</p>
-
-<p>
-  <b>Busi type:</b>
-  <%= @product.busi_type %>
-</p>
-
-<p>
-  <b>Platform:</b>
-  <%= @product.platform %>
-</p>
-
-<p>
-  <b>Selled price:</b>
-  <%= @product.selled_price %>
-</p>
-
-<p>
-  <b>Settle price:</b>
-  <%= @product.settle_price %>
-</p>
-
-<p>
-  <b>Is prepay:</b>
-  <%= @product.is_prepay %>
-</p>
-
-<p>
-  <b>Prepay percentage:</b>
-  <%= @product.prepay_percentage %>
-</p>
-
-<p>
-  <b>Begin date:</b>
-  <%= @product.begin_date %>
-</p>
-
-<p>
-  <b>End date:</b>
-  <%= @product.end_date %>
-</p>
-
-<p>
-  <b>Selled nums:</b>
-  <%= @product.selled_nums %>
-</p>
-
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              products_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_product_path(@product), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              product_path(@product),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

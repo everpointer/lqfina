@@ -1,0 +1,43 @@
+"zh-CN":
+  helpers:
+    actions: "操作"
+    links:
+      new: "新建"
+      edit: "修改"
+      destroy: "删除"
+      confirm: "确定要删除吗"
+      cancel: "取消"
+      back: "返回"
+  activerecord:
+    models:
+      group_buy: 团购结算记录
+      product:   项目
+    attributes:
+      product:
+        name: "项目名称"
+    errors:
+      models:
+        group_buy: 团购结算记录
+        product: 项目
+      messages:
+        inclusion: "不包含于列表中"
+        exclusion: "是保留关键字"
+        invalid: "是无效的"
+        confirmation: "与确认值不匹配"
+        accepted: "必须是可被接受的"
+        empty: "不能留空"
+        blank: "不能为空字符"
+        too_long: "过长（最长为 %{count} 个字符）"
+        too_short: "过短（最短为 %{count} 个字符）"
+        wrong_length: "长度非法（必须为 %{count} 个字符）"
+        taken: "已经被使用"
+        not_a_number: "不是数字"
+        not_an_integer: "必须是整数"
+        greater_than: "必须大于 %{count}"
+        greater_than_or_equal_to: "必须大于或等于 %{count}"
+        equal_to: "必须等于 %{count}"
+        less_than: "必须小于 %{count}"
+        less_than_or_equal_to: "必须小于或等于 %{count}"
+        odd: "必须为单数"
+        even: "必须为双数"
+        record_invalid: "校验失败: %{errors}"
