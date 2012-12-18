@@ -1,4 +1,6 @@
 class Product < ActiveRecord::Base
+  has_many :group_buys, :foreign_key => 'product_name', :primary_key => :name
+
   attr_accessible :begin_date,
                   :busi_type,
                   :end_date,

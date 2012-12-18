@@ -11,14 +11,19 @@ class GroupBuysController < ApplicationController
     def create
       groupbuy = {}
       groupbuy['product_name'] = params[:product_name]
+      product = Product.find_by_name(groupbuy['product_name'])
+
+
       if params[:is_prepay] == "true"
         groupbuy['settle_type'] = "预付"
-        groupbuy['settle_nums'] = params[:group_buy][:settle_nums]
+        groupbuy['settle_nums'] = product['selled_nums'] 
+        groupbuy['settle_money'] = product['prepay_percentage'] * product['selled_nums'] * product['settle_price']
       else
         groupbuy['settle_type'] = "结算"
-        groupbuy['refund_nums'] = params[:group_buy][:refund_nums]
+        groupbuy['refund_nums'] = params[:group_buy][:refund_nums].to_i
+        groupbuy['settle_nums'] = params[:group_buy][:settle_nums].to_i
+        groupbuy['settle_money'] = groupbuy['settle_nums'] * product['settle_price']
       end
-      groupbuy['settle_nums'] = params[:group_buy][:settle_nums]
       groupbuy['state'] = "未处理"
 
       GroupBuy.create groupbuy

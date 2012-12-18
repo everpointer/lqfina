@@ -10,7 +10,7 @@
             <fieldset>
                 <% if !params[:product_name].blank? %>
                     <% if product_is_prepay?(params[:product_name]) %>
-                        <%= f.input :settle_nums, :label => "销售份数"%>
+                        <%= content_tag :div, "点击新增一条预存结算记录" %>
                         <%= hidden_field_tag 'is_prepay', true %>
                     <% else %> 
                         <%= f.input :settle_nums, :label => "结算份数"%>
