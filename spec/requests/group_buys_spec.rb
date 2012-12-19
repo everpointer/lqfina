@@ -35,14 +35,14 @@ describe "GroupBuys" do
       :end_date => Date.today.next_month,
       :selled_nums => 100
 
-    @groupbuy1 = GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
-    @groupbuy2 = GroupBuy.create :product_name => "测试项目2", :settle_type => "结算", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
+    # @groupbuy2 = GroupBuy.create :product_name => "测试项目2", :settle_type => "结算", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
   end
 
 
   describe "GET /group_buys" do
     it "sees current month's settle record" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
+      @groupbuy1 = GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
 
       visit group_buys_path
 
@@ -65,7 +65,6 @@ describe "GroupBuys" do
 
       within "#new_group_buy" do
         # fill_in 'group_buy_settle_nums', :with => @product1.selled_nums
-
         click_button "新增"
       end
       current_path.should == group_buys_path
@@ -107,6 +106,7 @@ describe "GroupBuys" do
     end
 
     it 'confirms handlement of checked groupbuy records', :js => true do
+      @groupbuy1 = GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
       visit group_buys_path
 
       search_a_product "测试项目1"
