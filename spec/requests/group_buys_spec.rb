@@ -125,5 +125,38 @@ describe "GroupBuys" do
         find("tbody tr:first td.settle_state").text.should == "未处理"
       end
     end
+
+    # todo: support update specified group_buy record
+    # it 'updates a settle record' do
+    #   @groupbuy1 = GroupBuy.create :product_name => @product2.name, :settle_type => "结算", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
+
+    #   visit group_buys_path
+
+    #   search_a_product @product2.name
+
+    #   within ".group_buy_table_wrapper" do
+    #     find("tbody tr:first").click
+    #   end
+
+    #   within ".product_box" do
+    #     fill_in 'group_buy_settle_nums', :with => 1002
+    #     fill_in 'group_buy_refund_nums', :with => 101
+
+    #     click_button "修改"
+    #   end
+
+    #   current_path.should == group_buys_path
+
+    #   within "#group_buy_record_table" do
+    #     all("tbody tr").length.should > 0
+    #     all("tbody tr")[0].find(".product_name").text.should == @product2.name
+    #     all("tbody tr")[0].find(".settle_nums").text.should == "1002"
+    #     all("tbody tr")[0].find(".refund_nums").text.should == "101"
+
+    #     settle_money = @product2.settle_price * 1002
+    #     all("tbody tr")[0].find(".settle_money").text.should == settle_money.to_s
+    #   end
+    # end
+
   end
 end

@@ -11,6 +11,10 @@ $ ->
         event.preventDefault()
         confirm_checked_groupbuy_records(false)
 
+    # $("#group_buy_table_wrapper tbody tr.group_buy").click (event) ->
+    #     event.preventDefault()
+    #     todo: support specifed group_buy record change
+
     # confirm_flag: boolean true means confirm, false means unconfirm
     confirm_checked_groupbuy_records = (confirm_flag) ->
         id_list = get_checked_groupbuy_id_list()

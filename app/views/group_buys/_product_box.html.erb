@@ -35,7 +35,11 @@
                         <%= f.input :settle_nums, :label => "结算份数"%>
                         <%= f.input :refund_nums, :label => "退款份数"%>
                     <% end %>
-                    <%= f.submit :value => "新增", :class => "btn btn-primary" %>
+                    <%= f.submit :value => "新增", :id => "btn_add_group",:class => "btn btn-primary" %>
+                    <div class='action_bar' style='display:none;'>
+                        <%= f.submit :value => "修改", :id => "btn_update_group", :class => "btn btn-primary" %>
+                        <%= f.submit :value => "删除", :id => "btn_delete_group", :class => "btn btn-primary" %>
+                    </div>
                     <%= hidden_field_tag 'product_name', params[:product_name] %>
                     <%= hidden_field_tag 'stat_date', params[:stat_date] %>
                 <% end %>
