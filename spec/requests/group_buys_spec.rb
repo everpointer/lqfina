@@ -102,7 +102,6 @@ describe "GroupBuys" do
         all("tbody tr")[0].find(".refund_nums").text.should == "100"
 
         settle_money = @product2.settle_price * 1001
-        save_and_open_page
         all("tbody tr")[0].find(".settle_money").text.should == settle_money.to_s
       end
     end

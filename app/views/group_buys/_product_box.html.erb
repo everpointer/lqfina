@@ -9,7 +9,7 @@
         <%= simple_form_for @group_buy, :html => {:class => 'form_horizontal pull-right span4'} do |f| %>
             <fieldset>
                 <% if !params[:product_name].blank? %>
-                    <% if product_is_prepay?(params[:product_name]) %>
+                    <% if is_prepay_settlement?(params[:product_name]) %>
                         <%= content_tag :div, "点击新增一条预存结算记录" %>
                         <%= hidden_field_tag 'is_prepay', true %>
                     <% else %> 

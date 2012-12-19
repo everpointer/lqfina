@@ -1,13 +1,15 @@
 # encoding: utf-8
 module GroupBuysHelper
-  def product_is_prepay?(product_name)
+  def is_prepay_settlement?(product_name)
       if !product_name.blank?
-        products = Product.where("name = ?", product_name).limit(1)
-        if products.length > 0
-          return products[0][:is_prepay]
-        else
-          return nil
+        products = Product.find_by_name(product_name)
+        is_prepay = true
+        if products[:is_prepay]
+          products.group_buys.each do |group_buy|
+            is_prepay = false if group_buy[:settle_type] == '预付'
+          end
         end
+        return is_prepay
       else
         return nil
       end
