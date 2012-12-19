@@ -1,9 +1,28 @@
 <% if !params[:product_name].blank? %>
     <div class="stat_wrapper product_box">
         <div id="product_info" class="pull-left span4">
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam laudantium ratione dicta molestiae perferendis eius id repellendus cumque iusto assumenda tempore necessitatibus tempora dolorum a obcaecati pariatur placeat unde natus doloremque odit provident officiis quos adipisci. Quae aliquid modi quia voluptates ducimus repellat ea ab non necessitatibus quis nemo excepturi.
-            </p>
+            <dl class="dl-horizontal">
+              <dt><strong><%= t('products.name') %>:</strong></dt>
+              <dd><%= @current_product.name %></dd>
+              <dt><strong><%= t('products.busi_type') %>:</strong></dt>
+              <dd><%= @current_product.busi_type %></dd>
+              <dt><strong><%= t('products.platform') %>:</strong></dt>
+              <dd><%= @current_product.platform %></dd>
+              <dt><strong><%= t('products.selled_price') %>:</strong></dt>
+              <dd><%= @current_product.selled_price %></dd>
+              <dt><strong><%= t('products.settle_price') %>:</strong></dt>
+              <dd><%= @current_product.settle_price %></dd>
+              <dt><strong><%= t('products.is_prepay') %>:</strong></dt>
+              <dd><%= @current_product.is_prepay %></dd>
+              <dt><strong><%= t('products.prepay_percentage') %>:</strong></dt>
+              <dd><%= @current_product.prepay_percentage %></dd>
+              <dt><strong><%= t('products.begin_date') %>:</strong></dt>
+              <dd><%= @current_product.begin_date %></dd>
+              <dt><strong><%= t('products.end_date') %>:</strong></dt>
+              <dd><%= @current_product.end_date %></dd>
+              <dt><strong><%= t('products.selled_nums') %>:</strong></dt>
+              <dd><%= @current_product.selled_nums %></dd>
+            </dl>
         </div>
 
         <%= simple_form_for @group_buy, :html => {:class => 'form_horizontal pull-right span4'} do |f| %>
