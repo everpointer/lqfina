@@ -1,4 +1,7 @@
 LqFinance::Application.routes.draw do
+  resources :businesses
+
+
   resources :partners
 
 

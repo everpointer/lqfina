@@ -16,6 +16,7 @@
       group_buy: 团购结算记录
       product:   项目
       partner:   商户
+      business:  业务员
     attributes:
       product:
         name: "项目名称"
@@ -32,6 +33,12 @@
         is_public_accounting: "是否公帐"
         has_pay_announce: "是否有支付声明"
         business_id: "业务员"
+        created_at: "创建时间"
+        updated_at: "更新时间"
+      business:
+        nick_name: 花名
+        mobile: 手机
+        qq: QQ
         created_at: "创建时间"
         updated_at: "更新时间"
     errors:

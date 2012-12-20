@@ -1,0 +1,43 @@
+<%- model_class = Partner -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @partner.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:busi_contact_person) %>:</strong></dt>
+  <dd><%= @partner.busi_contact_person %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:busi_contact_phone) %>:</strong></dt>
+  <dd><%= @partner.busi_contact_phone %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:busi_contact_qq) %>:</strong></dt>
+  <dd><%= @partner.busi_contact_qq %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:fina_contact_person) %>:</strong></dt>
+  <dd><%= @partner.fina_contact_person %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:fina_contact_phone) %>:</strong></dt>
+  <dd><%= @partner.fina_contact_phone %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:openning_bank) %>:</strong></dt>
+  <dd><%= @partner.openning_bank %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:openning_bank_person) %>:</strong></dt>
+  <dd><%= @partner.openning_bank_person %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:bank_acct) %>:</strong></dt>
+  <dd><%= @partner.bank_acct %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:is_public_accounting) %>:</strong></dt>
+  <dd><%= @partner.is_public_accounting %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:has_pay_announce) %>:</strong></dt>
+  <dd><%= @partner.has_pay_announce %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:business_id) %>:</strong></dt>
+  <dd><%= @partner.business_id %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              partners_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_partner_path(@partner), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              partner_path(@partner),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

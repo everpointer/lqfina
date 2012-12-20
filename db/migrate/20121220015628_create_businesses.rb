@@ -1,10 +1,11 @@
 class CreateBusinesses < ActiveRecord::Migration
   def change
     create_table :businesses do |t|
-        t.string :busi_type
-        t.string :name
+      t.string :nick_name
+      t.string :mobile
+      t.string :qq
 
-        t.timestamps
+      t.timestamps
     end
   end
 end

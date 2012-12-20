@@ -1,3 +1,3 @@
 class Business < ActiveRecord::Base
-  attr_accessible :busi_type, :name
+  attr_accessible :mobile, :nick_name, :qq
 end

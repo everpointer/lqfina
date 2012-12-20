@@ -1,17 +1,10 @@
-<%= form_for(@business) do |f| %>
-  <% if @business.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@business.errors.count, "error") %> prohibited this business from being saved:</h2>
-
-      <ul>
-      <% @business.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+<%= simple_form_for @business, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :nick_name %>
+  <%= f.input :mobile %>
+  <%= f.input :qq %>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary', :value => t('businesses.create') %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                businesses_path, :class => 'btn' %>
   </div>
 <% end %>
