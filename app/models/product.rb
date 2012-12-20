@@ -13,7 +13,8 @@ class Product < ActiveRecord::Base
                   :prepay_percentage,
                   :selled_nums,
                   :selled_price,
-                  :settle_price
+                  :settle_price,
+                  :partner_id
 
   validates :name,        :presence   => true
   validates :busi_type,   :presence   => true

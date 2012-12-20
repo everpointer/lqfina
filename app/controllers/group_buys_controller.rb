@@ -61,6 +61,42 @@ class GroupBuysController < ApplicationController
       end
     end
 
+    def export_finance_records
+      id_list = params[:id_list].split(',')
+      settle_records = GroupBuy.find id_list
+
+      exported_results = []
+      nth_record = 0
+      settle_records.each do |record|
+        product_records = GroupBuy.where('product_name = ?', record.product_name).order('created_at')
+        product_records.each_with_index do |r, i|
+          if record.id == r.id    
+            nth_record = i + 1
+          end
+        end
+
+        result = {:bank_acct => record.product.partner.bank_acct.slice(-4,4),
+          :settle_money => record.settle_money,
+          :online_date => record.product.begin_date,
+          :product_name => record.product_name,
+          :platform => record.product.platform,
+          :nth_record => nth_record,
+          :fina_contact_phone => record.product.partner.fina_contact_phone }
+
+        exported_results << result
+      end
+
+      export_content = ""
+      exported_results.each do |result|
+        export_content << result.values.join("\t") + "\n"
+      end
+
+      file_name = "财务打款导出列表_" + DateTime.now.strftime('%Y%m%d%H%M%S') + ".txt"
+      send_data export_content,
+        :type => 'text',
+        :disposition => "attachment; filename=#{file_name}"
+    end
+
     def init_variable
       @current_product = Product.find_by_name(params[:product_name])
 

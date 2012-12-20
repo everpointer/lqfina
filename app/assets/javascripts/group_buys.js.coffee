@@ -11,6 +11,11 @@ $ ->
         event.preventDefault()
         confirm_checked_groupbuy_records(false)
 
+    $(".group_buy_table_wrapper #export_finance_output_list").click (event) ->
+        event.preventDefault()
+        export_checked_finance_records()
+
+
     # $("#group_buy_table_wrapper tbody tr.group_buy").click (event) ->
     #     event.preventDefault()
     #     todo: support specifed group_buy record change
@@ -32,6 +37,10 @@ $ ->
                 handled_id_list = data
                 local_id_list = get_local_groupbuy_id_list()
                 local_confirm_record(local_id_list, handled_id_list, confirm_flag)
+
+    export_checked_finance_records = ->
+        id_list = get_checked_groupbuy_id_list()
+        window.location = "group_buys/export_finance_records?id_list=" + id_list.join(',')
 
     local_confirm_record = (local_id_list, handled_id_list, confirm_flag) ->
         if confirm_flag is true

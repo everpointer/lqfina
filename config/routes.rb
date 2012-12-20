@@ -10,10 +10,11 @@ LqFinance::Application.routes.draw do
 
   get "group_buy/index"
 
+  match 'group_buys/confirm_record' => "group_buys#confirm_record"
+  match 'group_buys/export_finance_records' => "group_buys#export_finance_records"
+
   resources :businesses
   resources :group_buys
-
-  match 'group_buys/confirm_record' => "group_buys#confirm_record"
 
   root :to =>  "group_buys#index"
 
