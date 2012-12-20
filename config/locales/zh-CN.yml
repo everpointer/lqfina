@@ -1,4 +1,7 @@
 "zh-CN":
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M:%S"
   helpers:
     actions: "操作"
     links:
@@ -12,9 +15,25 @@
     models:
       group_buy: 团购结算记录
       product:   项目
+      partner:   商户
     attributes:
       product:
         name: "项目名称"
+      partner:
+        name: "商户名"
+        busi_contact_person: "业务联系人"
+        busi_contact_phone: "业务联系人电话"
+        busi_contact_qq: "业务联系人QQ"
+        fina_contact_person: "财务联系人"
+        fina_contact_phone: "财务联系人电话"
+        openning_bank:  "银行开户行"
+        openning_bank_person: "银行开户名"
+        bank_acct: "银行账号"
+        is_public_accounting: "是否公帐"
+        has_pay_announce: "是否有支付声明"
+        business_id: "业务员"
+        created_at: "创建时间"
+        updated_at: "更新时间"
     errors:
       models:
         group_buy: 团购结算记录

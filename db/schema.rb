@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213034248) do
+ActiveRecord::Schema.define(:version => 20121219135614) do
 
   create_table "businesses", :force => true do |t|
     t.string   "busi_type"
@@ -29,6 +29,23 @@ ActiveRecord::Schema.define(:version => 20121213034248) do
     t.string   "state"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "partners", :force => true do |t|
+    t.string   "name"
+    t.string   "busi_contact_person"
+    t.string   "busi_contact_phone"
+    t.string   "busi_contact_qq"
+    t.string   "fina_contact_person"
+    t.string   "fina_contact_phone"
+    t.string   "openning_bank"
+    t.string   "openning_bank_person"
+    t.string   "bank_acct"
+    t.boolean  "is_public_accounting"
+    t.boolean  "has_pay_announce"
+    t.integer  "business_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   create_table "products", :force => true do |t|

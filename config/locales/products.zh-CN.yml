@@ -12,6 +12,7 @@
     end_date:   "结束时间"       
     selled_nums: "销售份数"
     created_at: "创建时间"
+    updated_at: "更新时间"
     action: "操作"
     create_product: "创建项目"
     cancel_product: "重置"
