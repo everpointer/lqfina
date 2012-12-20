@@ -15,6 +15,7 @@
       <th><%= t('products.begin_date') %></th>
       <th><%= t('products.end_date') %></th>
       <th><%= t('products.selled_nums') %></th>
+      <th><%= t('products.partner_id') %></th>
       <th><%= t('products.created_at') %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -32,6 +33,7 @@
         <td><%= product.begin_date %></td>
         <td><%= product.end_date %></td>
         <td><%= product.selled_nums %></td>
+        <td><%= product.partner.name %></td>
         <td><%= product.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

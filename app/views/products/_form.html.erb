@@ -10,6 +10,7 @@
   <%= f.input :begin_date, :as => :string, :label => t("products.begin_date"), :input_html => {:class => 'datepicker'}%>
   <%= f.input :end_date, :as => :string, :label => t("products.end_date"), :input_html => {:class => 'datepicker'} %>
   <%= f.input :selled_nums, :label => t("products.selled_nums") %>
+  <%= f.input :partner_id, :label => t("products.partner_id"), :collection => @partners.collect { |p| [p.name, p.id]} %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary', :value => t("products.create_product") %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
