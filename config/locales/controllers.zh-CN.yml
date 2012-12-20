@@ -1,7 +1,9 @@
 "zh-CN":
   partners:
     action: "操作"
-    create: "创建"
+    create: "创建商户"
     cancel: "取消"
     new: "新建"
     edit: "编辑"
+  businesses:
+    create: "创建业务员"

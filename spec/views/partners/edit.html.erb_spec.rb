@@ -2,6 +2,13 @@ require 'spec_helper'
 
 describe "partners/edit" do
   before(:each) do
+    @business = assign(:business, stub_model(Business,
+      :nick_name => "MyString",
+      :mobile => "MyString",
+      :qq => "MyString"
+    ).as_new_record)
+    print @business.inspect
+
     @partner = assign(:partner, stub_model(Partner,
       :name => "MyString",
       :busi_contact_person => "MyString",
@@ -14,8 +21,10 @@ describe "partners/edit" do
       :bank_acct => "MyString",
       :is_public_accounting => false,
       :has_pay_announce => false,
-      :business_id => 1
+      :business_id => @business.id
     ))
+    
+    @businesses = Business.all
   end
 
   it "renders the edit partner form" do
@@ -34,7 +43,7 @@ describe "partners/edit" do
       assert_select "input#partner_bank_acct", :name => "partner[bank_acct]"
       assert_select "input#partner_is_public_accounting", :name => "partner[is_public_accounting]"
       assert_select "input#partner_has_pay_announce", :name => "partner[has_pay_announce]"
-      assert_select "input#partner_business_id", :name => "partner[business_id]"
+      # assert_select "select#partner_business_id", :name => "partner[business_id]"
     end
   end
 end

@@ -37,7 +37,7 @@
         <td><%= partner.bank_acct %></td>
         <td><%= partner.is_public_accounting %></td>
         <td><%= partner.has_pay_announce %></td>
-        <td><%= partner.business_id %></td>
+        <td><%= partner.business.nick_name %></td>
         <td><%= partner.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

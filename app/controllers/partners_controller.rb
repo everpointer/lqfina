@@ -1,4 +1,5 @@
 class PartnersController < ApplicationController
+  before_filter :init
   # GET /partners
   # GET /partners.json
   def index
@@ -80,4 +81,9 @@ class PartnersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def init
+    @businesses = Business.all
+  end
+  
 end

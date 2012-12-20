@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe "partners/index" do
   before(:each) do
+    @business = assign(:business, stub_model(Business,
+      :nick_name => "MyString",
+      :mobile => "MyString",
+      :qq => "MyString"
+    ).as_new_record)
+
     assign(:partners, [
       stub_model(Partner,
         :name => "Name",
@@ -15,7 +21,8 @@ describe "partners/index" do
         :bank_acct => "Bank Acct",
         :is_public_accounting => false,
         :has_pay_announce => false,
-        :business_id => 1
+        :business_id => @business.id,
+        :business => @business
       ),
       stub_model(Partner,
         :name => "Name",
@@ -29,13 +36,14 @@ describe "partners/index" do
         :bank_acct => "Bank Acct",
         :is_public_accounting => false,
         :has_pay_announce => false,
-        :business_id => 1
+        :business_id => @business.id,
+        :business => @business
       )
     ])
   end
 
   it "renders a list of partners" do
-    print render
+    render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "Name".to_s, :count => 2
     assert_select "tr>td", :text => "Busi Contact Person".to_s, :count => 2
@@ -48,6 +56,6 @@ describe "partners/index" do
     assert_select "tr>td", :text => "Bank Acct".to_s, :count => 2
     assert_select "tr>td", :text => false.to_s, :count => 4
     assert_select "tr>td", :text => false.to_s, :count => 4
-    assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => @business.nick_name, :count => 2
   end
 end

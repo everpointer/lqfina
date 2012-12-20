@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe "partners/new" do
   before(:each) do
+    @business = assign(:business, stub_model(Business,
+      :nick_name => "MyString",
+      :mobile => "MyString",
+      :qq => "MyString"
+    ).as_new_record)
+
     assign(:partner, stub_model(Partner,
       :name => "MyString",
       :busi_contact_person => "MyString",
@@ -14,8 +20,10 @@ describe "partners/new" do
       :bank_acct => "MyString",
       :is_public_accounting => false,
       :has_pay_announce => false,
-      :business_id => 1
+      :business_id => @business.id
     ).as_new_record)
+
+    @businesses = Business.all
   end
 
   it "renders new partner form" do
@@ -34,7 +42,7 @@ describe "partners/new" do
       assert_select "input#partner_bank_acct", :name => "partner[bank_acct]"
       assert_select "input#partner_is_public_accounting", :name => "partner[is_public_accounting]"
       assert_select "input#partner_has_pay_announce", :name => "partner[has_pay_announce]"
-      assert_select "input#partner_business_id", :name => "partner[business_id]"
+      # assert_select "select#partner_business_id", :name => "partner[business_id]"
     end
   end
 end
