@@ -30,8 +30,8 @@ describe "partners/show" do
     rendered.should match(/Openning Bank/)
     rendered.should match(/Openning Bank Person/)
     rendered.should match(/Bank Acct/)
-    rendered.should match(/false/)
-    rendered.should match(/false/)
+    rendered.should match(convert_boolean_cn(false))
+    rendered.should match(convert_boolean_cn(false))
     rendered.should match(/1/)
   end
 end

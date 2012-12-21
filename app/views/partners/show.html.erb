@@ -23,9 +23,9 @@
   <dt><strong><%= model_class.human_attribute_name(:bank_acct) %>:</strong></dt>
   <dd><%= @partner.bank_acct %></dd>
   <dt><strong><%= model_class.human_attribute_name(:is_public_accounting) %>:</strong></dt>
-  <dd><%= @partner.is_public_accounting %></dd>
+  <dd><%= convert_boolean_cn(@partner.is_public_accounting) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:has_pay_announce) %>:</strong></dt>
-  <dd><%= @partner.has_pay_announce %></dd>
+  <dd><%= convert_boolean_cn(@partner.has_pay_announce) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:business_id) %>:</strong></dt>
   <dd><%= @partner.business_id %></dd>
 </dl>

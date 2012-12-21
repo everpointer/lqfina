@@ -35,8 +35,8 @@
         <td><%= partner.openning_bank %></td>
         <td><%= partner.openning_bank_person %></td>
         <td><%= partner.bank_acct %></td>
-        <td><%= partner.is_public_accounting %></td>
-        <td><%= partner.has_pay_announce %></td>
+        <td><%= convert_boolean_cn(partner.is_public_accounting) %></td>
+        <td><%= convert_boolean_cn(partner.has_pay_announce) %></td>
         <td><%= partner.business.nick_name %></td>
         <td><%= partner.created_at %></td>
         <td>

@@ -54,8 +54,8 @@ describe "partners/index" do
     assert_select "tr>td", :text => "Openning Bank".to_s, :count => 2
     assert_select "tr>td", :text => "Openning Bank Person".to_s, :count => 2
     assert_select "tr>td", :text => "Bank Acct".to_s, :count => 2
-    assert_select "tr>td", :text => false.to_s, :count => 4
-    assert_select "tr>td", :text => false.to_s, :count => 4
+    assert_select "tr>td", :text => convert_boolean_cn(false), :count => 4
+    assert_select "tr>td", :text => convert_boolean_cn(false), :count => 4
     assert_select "tr>td", :text => @business.nick_name, :count => 2
   end
 end

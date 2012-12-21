@@ -1,3 +1,4 @@
+# encoding: utf-8
 module ApplicationHelper
     def controller_stylesheet_link_tag
         case controller_name
@@ -18,6 +19,14 @@ module ApplicationHelper
         case controller_name
         when "group_buys", "products"
           javascript_include_tag controller_name
+        end
+    end
+
+    def convert_boolean_cn(b_origin)
+        if b_origin
+            "是"
+        else
+            "否"
         end
     end
 end
