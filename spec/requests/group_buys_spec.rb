@@ -11,6 +11,23 @@ end
 
 describe "GroupBuys" do
   before :each do
+    @business1 = Business.create :nick_name => "MyString",
+      :mobile => "MyString",
+      :qq => "MyString"
+
+    @partner1 = Partner.create :name => "MyString",
+      :busi_contact_person => "MyString",
+      :busi_contact_phone => "MyString",
+      :busi_contact_qq => "MyString",
+      :fina_contact_person => "MyString",
+      :fina_contact_phone => "MyString",
+      :openning_bank => "MyString",
+      :openning_bank_person => "MyString",
+      :bank_acct => "MyString",
+      :is_public_accounting => false,
+      :has_pay_announce => false,
+      :business_id => @business1.id
+
     @product1 = Product.create :name => "测试项目1",
       :foreign_product_id => '1',
       :busi_type => "团购",
@@ -21,7 +38,8 @@ describe "GroupBuys" do
       :prepay_percentage => 0.5,
       :begin_date => Date.today,
       :end_date => Date.today.next_month,
-      :selled_nums => 100
+      :selled_nums => 100,
+      :partner_id => @partner1.id
 
     @product2 = Product.create :name => "测试项目2",
       :foreign_product_id => '1',
@@ -33,7 +51,9 @@ describe "GroupBuys" do
       :prepay_percentage => 0.5,
       :begin_date => Date.today,
       :end_date => Date.today.next_month,
-      :selled_nums => 100
+      :selled_nums => 100,
+      :partner_id => @partner1.id
+
 
     # @groupbuy2 = GroupBuy.create :product_name => "测试项目2", :settle_type => "结算", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
   end

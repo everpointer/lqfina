@@ -12,6 +12,7 @@ class CreateProducts < ActiveRecord::Migration
       t.date :begin_date
       t.date :end_date
       t.integer :selled_nums
+      t.integer :partner_id, :null => false
 
       t.timestamps
     end
