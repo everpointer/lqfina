@@ -35,11 +35,18 @@
                         <%= f.input :settle_nums, :label => "结算份数"%>
                         <%= f.input :refund_nums, :label => "退款份数"%>
                     <% end %>
-                    <%= f.submit :value => "新增", :id => "btn_add_group",:class => "btn btn-primary" %>
-                    <div class='action_bar' style='display:none;'>
-                        <%= f.submit :value => "修改", :id => "btn_update_group", :class => "btn btn-primary" %>
-                        <%= f.submit :value => "删除", :id => "btn_delete_group", :class => "btn btn-primary" %>
-                    </div>
+                    <% if params[:id].blank? %>
+                      <%= f.submit :value => "新增", :id => "btn_add_group",:class => "btn btn-primary" %>
+                    <% else %>
+                      <div class='action_bar'>
+                          <%= f.submit :value => "修改", :id => "btn_update_group", :class => "btn btn-primary" %>
+                          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      group_buy_path(@group_buy),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-primary btn-danger' %>
+                      </div>
+                    <% end %>
                     <%= hidden_field_tag 'product_name', params[:product_name] %>
                     <%= hidden_field_tag 'stat_date', params[:stat_date] %>
                 <% end %>

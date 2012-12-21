@@ -32,6 +32,41 @@ class GroupBuysController < ApplicationController
       redirect_to :back
     end
 
+    # PUT /businesses/1
+    # PUT /businesses/1.json
+    def update
+      @group_buy = GroupBuy.find(params[:id])
+
+      back_url = group_buys_path + "?stat_date=" + @group_buy.created_at.to_date.strftime('%Y-%m')
+      back_url += "&product_name=" +  URI.escape(@group_buy.product_name)
+
+      if !params[:group_buy][:settle_nums].blank?
+        params[:group_buy][:settle_money] = params[:group_buy][:settle_nums].to_i * @group_buy.product.settle_price
+      end
+
+      respond_to do |format|
+        if @group_buy.update_attributes(params[:group_buy])
+          format.html { redirect_to back_url, notice: 'GroupBuy was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to back_url }
+          format.json { render json: @group_buy.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+
+    # DELETE /businesses/1
+    # DELETE /businesses/1.json
+    def destroy
+      @group_buy = GroupBuy.find(params[:id])
+      @group_buy.destroy
+
+      respond_to do |format|
+        format.html { redirect_to group_buys_url }
+        format.json { head :no_content }
+      end
+  end
+
     def confirm_record
       groupbuy_id_list = JSON.parse(params[:groupbuy_id_list])
       confirm_flag =  params[:confirm_flag]
@@ -112,7 +147,11 @@ class GroupBuysController < ApplicationController
     end
 
     def init_record_add_form
-      @group_buy = GroupBuy.new
+      if params[:id].blank?
+        @group_buy = GroupBuy.new 
+      else
+        @group_buy = GroupBuy.find(params[:id])
+      end
     end
 
     def product_is_prepay?(product_name)

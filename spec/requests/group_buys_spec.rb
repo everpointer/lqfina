@@ -135,7 +135,9 @@ describe "GroupBuys" do
 
       within ".group_buy_table_wrapper" do
         find("tbody tr:first td input[type='checkbox']").set true
+        
         find("#confirm_handle").click
+        
         current_path.should == group_buys_path
         find("tbody tr:first td.settle_state").text.should == "已处理"
 

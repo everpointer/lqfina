@@ -1,12 +1,13 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-$ ->
+jQuery ->
     'use strict'
 
     $(".group_buy_table_wrapper #confirm_handle").click (event) ->
         event.preventDefault()
         confirm_checked_groupbuy_records(true)        
+
     $(".group_buy_table_wrapper #cancel_handle").click (event) ->
         event.preventDefault()
         confirm_checked_groupbuy_records(false)
@@ -15,6 +16,20 @@ $ ->
         event.preventDefault()
         export_checked_finance_records()
 
+    $(".group_buy_table_wrapper #edit_record").click (event) ->
+        event.preventDefault()
+        edit_checked_one_record()
+
+    $("#group_buy_record_table input[type='checkbox']").click (event) ->
+        event.stopPropagation()
+        
+    $("#group_buy_record_table > tbody > tr.group_buy").each (index, item) ->
+        item.onclick = ->
+            checkbox = $(this).find("td.check_box input[type='checkbox']")
+            checked = checkbox.attr('checked') 
+            checked = false if checked is undefined
+            checkbox.attr('checked', !checked)
+            return false
 
     # $("#group_buy_table_wrapper tbody tr.group_buy").click (event) ->
     #     event.preventDefault()
@@ -41,6 +56,14 @@ $ ->
     export_checked_finance_records = ->
         id_list = get_checked_groupbuy_id_list()
         window.location = "group_buys/export_finance_records?id_list=" + id_list.join(',')
+
+    edit_checked_one_record = ->
+        id_list = get_checked_groupbuy_id_list()
+        if id_list.length isnt 1
+            alert('请选中1条记录进行修改')
+        else
+            window.location = window.location.href + "&id="+id_list[0]
+
 
     local_confirm_record = (local_id_list, handled_id_list, confirm_flag) ->
         if confirm_flag is true
