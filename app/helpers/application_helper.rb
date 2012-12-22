@@ -2,7 +2,7 @@
 module ApplicationHelper
     def controller_stylesheet_link_tag
         case controller_name
-        when "group_buys", "products"
+        when "group_buys", "products", "partners", "businesses"
           stylesheet_link_tag controller_name
         end
     end
@@ -17,7 +17,7 @@ module ApplicationHelper
     
     def controller_javascript_include_tag
         case controller_name
-        when "group_buys", "products"
+        when "group_buys", "products", "partners", "businesses"
           javascript_include_tag controller_name
         end
     end
