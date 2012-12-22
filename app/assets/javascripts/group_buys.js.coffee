@@ -22,7 +22,7 @@ jQuery ->
 
     $("#group_buy_record_table input[type='checkbox']").click (event) ->
         event.stopPropagation()
-        
+
     $("#group_buy_record_table > tbody > tr.group_buy").each (index, item) ->
         item.onclick = ->
             checkbox = $(this).find("td.check_box input[type='checkbox']")
@@ -58,11 +58,13 @@ jQuery ->
         window.location = "group_buys/export_finance_records?id_list=" + id_list.join(',')
 
     edit_checked_one_record = ->
-        id_list = get_checked_groupbuy_id_list()
-        if id_list.length isnt 1
+        checked_records = get_checked_groupbuy_record()
+        # id_list = get_checked_groupbuy_id_list()
+        if checked_records.length isnt 1
             alert('请选中1条记录进行修改')
         else
-            window.location = window.location.href + "&id="+id_list[0]
+            window.location = 
+                window.location.origin+ window.location.pathname + "?stat_date="+checked_records[0].stat_date+"&product_name="+checked_records[0].product_name + "&id="+checked_records[0].id
 
 
     local_confirm_record = (local_id_list, handled_id_list, confirm_flag) ->
@@ -79,6 +81,14 @@ jQuery ->
                 $(records[id_index]).find(".check_box input[type='checkbox']").attr('checked', false)
                 $(records[id_index]).find(".settle_state").text settle_state
 
+
+    get_checked_groupbuy_record = ->
+        checked_id_list = $(".group_buy_table_wrapper table tbody tr td.check_box input[type='checkbox']:checked").parents('tr').map(->
+            id = $(this).find("td.check_box input[type='checkbox']:checked").next('input.groupbuy_id').val()
+            product_name = $(this).find("td.product_name").text()
+            stat_date = $(this).find("td.update_date").text().substr(0,7)
+            {"id": id,  "product_name": product_name, "stat_date": stat_date}
+        ).get()
 
     get_checked_groupbuy_id_list = ->
         checked_id_list = $(".group_buy_table_wrapper table tbody tr").find("td:first input[type='checkbox']:checked").next('input.groupbuy_id').map ->
