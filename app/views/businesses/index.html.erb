@@ -22,6 +22,8 @@
         <td><%= business.qq %></td>
         <td><%= business.created_at %></td>
         <td>
+          <%= link_to t('.edit', :default => t("businesses.stat")),
+                      stat_business_path(business), :class => 'btn btn-mini' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_business_path(business), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
