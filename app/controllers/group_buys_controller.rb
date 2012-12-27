@@ -22,6 +22,7 @@ class GroupBuysController < ApplicationController
         groupbuy['settle_type'] = "结算"
         groupbuy['refund_nums'] = params[:group_buy][:refund_nums].to_i
         groupbuy['settle_nums'] = params[:group_buy][:settle_nums].to_i
+        groupbuy['dsr'] = params[:group_buy][:dsr].to_f
         groupbuy['settle_money'] = groupbuy['settle_nums'] * product['settle_price']
       end
       groupbuy['state'] = "未处理"

@@ -70,3 +70,6 @@ gem 'rb-fsevent', '~> 0.9.1'
 
 # 表单
 gem "simple_form"
+
+# performance tracking
+gem 'newrelic_rpm'

@@ -34,6 +34,7 @@
                     <% else %> 
                         <%= f.input :settle_nums, :label => "结算份数"%>
                         <%= f.input :refund_nums, :label => "退款份数"%>
+                        <%= f.input :dsr, :label => "DSR评分"%>
                     <% end %>
                     <% if params[:id].blank? %>
                       <%= f.submit :value => "新增", :id => "btn_add_group",:class => "btn btn-primary" %>

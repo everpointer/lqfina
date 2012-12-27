@@ -81,4 +81,47 @@ class BusinessesController < ApplicationController
     end
   end
 
+  def stat
+    @business = Business.find(params[:id])
+    @current_stat_date = params[:stat_date]
+
+    if @current_stat_date =~ /\d{4}-(((0[1-9])|(1[0-2])))/
+      @product_stat_result = []
+
+      busi_begin_date = @current_stat_date + "-01"
+      busi_end_date = busi_begin_date.to_date.end_of_month.to_s
+
+      group_buy_begin_date = busi_begin_date.to_date.next_month.to_s
+      group_buy_end_date = busi_begin_date.to_date.next_month.end_of_month.to_s
+
+      @business.partners.each do |partner|
+        products = partner.products.where('begin_date >= ? and begin_date <= ?', busi_begin_date, busi_end_date)
+        products.each do |product|
+
+          selled_price = product.selled_price
+          settle_price = product.settle_price
+          group_buys = product.group_buys.where('created_at >= ? and created_at <= ?', group_buy_begin_date, group_buy_end_date)
+
+          if group_buys.length > 0
+            settle_nums = group_buys[0][:settle_nums]
+            dsr = group_buys[0][:dsr]
+            dsr_rate =  if dsr < 4.0
+              0
+            elsif dsr >= 4.0 && dsr < 4.3
+              0.5
+            elsif dsr >= 4.3 && dsr < 4.5
+              0.8
+            else
+              1
+            end
+
+            # 业务员提成计算公式: (团购 - 结算金额 -1元码费) / 4 * dsr动态评分
+            bonus = (selled_price - settle_price - 1) * settle_nums / 4 * dsr_rate
+            @product_stat_result << {:product_name => product.name, :bonus => bonus}
+          end
+        end  # end of product
+      end # end of partner
+    end
+
+  end
 end

@@ -18,6 +18,8 @@ LqFinance::Application.routes.draw do
 
   root :to =>  "group_buys#index"
 
+  match 'businesses/:id/stat'         => 'businesses#stat'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

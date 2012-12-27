@@ -1,0 +1,37 @@
+<h2><%= @business.nick_name %>的业绩结算</h2>
+<hr/>
+<div class="stat_wrapper stat_action_bar_wrapper">
+    <form action="#" class="form_inline" id="stat_action_bar">
+            <label for="stat_date">结算月份</label>
+            <input type="text" id="stat_date" name="stat_date" placeholder="统计年月,格式：yyyy-mm" value=<%= @current_year_month %> >
+            <button id="search_stat_result" class="btn btn-primary">查询</button>
+    </form>
+</div>
+<hr/>
+<% if has_stat_date?(@current_stat_date) %>
+   <div class="stat_wrapper group_buy_table_wrapper">
+        <h3><%= @current_stat_date %>结算结果</h3> 
+        <table id="busi_stat_table" class="table table-stripe table-bordered table-hover table_wrapper">
+            <thead>
+                <tr>
+                    <th>项目名</th> <th>提成</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <% @product_stat_result.each do |product_stat| %>
+                <tr>
+                    <td class="product_name"><%= product_stat[:product_name] %></td>
+                    <td><%= '%0.2f' % product_stat[:bonus] %></td>
+                </tr>
+            <% end %>
+            <tr><td>汇总</td> <td><%= total_bonus_year_month(@product_stat_result) %></td></tr>
+            </tbody>
+        </table>
+        <div class="table_bottom_bar">
+            <div class="btn-group">
+                <button class="btn" id="do_edit">结算</button>
+            </div>
+        </div>
+    </div>
+<% end %>
