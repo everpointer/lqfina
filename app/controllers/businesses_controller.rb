@@ -1,3 +1,4 @@
+# encoding: utf-8
 class BusinessesController < ApplicationController
   # GET /businesses
   # GET /businesses.json
@@ -83,6 +84,8 @@ class BusinessesController < ApplicationController
 
   def stat
     @business = Business.find(params[:id])
+    @busi_stat_records = @business.business_stat_records.sort { |a,b| b[:stat_date] <=> a[:stat_date] }
+
     @current_stat_date = params[:stat_date]
 
     if @current_stat_date =~ /\d{4}-(((0[1-9])|(1[0-2])))/
@@ -100,7 +103,7 @@ class BusinessesController < ApplicationController
 
           selled_price = product.selled_price
           settle_price = product.settle_price
-          group_buys = product.group_buys.where('created_at >= ? and created_at <= ?', group_buy_begin_date, group_buy_end_date)
+          group_buys = product.group_buys.where('created_at >= ? and created_at <= ? and settle_type != ?', group_buy_begin_date, group_buy_end_date, '预付')
 
           if group_buys.length > 0
             settle_nums = group_buys[0][:settle_nums]
@@ -121,6 +124,21 @@ class BusinessesController < ApplicationController
           end
         end  # end of product
       end # end of partner
+    end
+
+    def create_stat
+      @business = Business.find(params[:id])
+
+      stat_date = params[:stat_date]
+      bonus = params[:bonus].to_f
+
+      busi_stat_record = BusinessStatRecord.create :business_id => @business.id, :stat_date => stat_date, :bonus => bonus
+
+      if busi_stat_record
+        redirect_to :action => 'stat', :id => params[:id]
+      else
+        redirect_to :back, :alert => "添加业务结算记录失败"
+      end
     end
 
   end

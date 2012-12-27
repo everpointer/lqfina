@@ -9,7 +9,7 @@
 </div>
 <hr/>
 <% if has_stat_date?(@current_stat_date) %>
-   <div class="stat_wrapper group_buy_table_wrapper">
+   <div class="stat_wrapper business_stat_wrapper">
         <h3><%= @current_stat_date %>结算结果</h3> 
         <table id="busi_stat_table" class="table table-stripe table-bordered table-hover table_wrapper">
             <thead>
@@ -30,8 +30,30 @@
         </table>
         <div class="table_bottom_bar">
             <div class="btn-group">
-                <button class="btn" id="do_edit">结算</button>
+                <%= business_stat_button(@business, @current_stat_date, total_bonus_year_month(@product_stat_result)) %>
             </div>
         </div>
     </div>
 <% end %>
+
+<hr/>
+<div class="business_his_stat_record">
+    <h3>历史结算记录</h3> 
+        <table id="busi_stat_table" class="table table-stripe table-bordered table-hover table_wrapper">
+            <thead>
+                <tr>
+                    <th>结算帐期</th> <th>提成</th> <th>操作时间</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <% @busi_stat_records.each do |busi_stat| %>
+                <tr>
+                    <td class="product_name"><%= busi_stat[:stat_date] %></td>
+                    <td><%= busi_stat[:bonus] %></td>
+                    <td><%= busi_stat[:created_at] %></td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+</div>

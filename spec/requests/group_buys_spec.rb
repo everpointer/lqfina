@@ -62,7 +62,7 @@ describe "GroupBuys" do
   describe "GET /group_buys" do
     it "sees current month's settle record" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      @groupbuy1 = GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
+      @groupbuy1 = GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理", :dsr => 4.1, :real_settle_money => 0
 
       visit group_buys_path
 
@@ -95,7 +95,7 @@ describe "GroupBuys" do
         all("tbody tr")[0].find(".settle_nums").text.should == @product1.selled_nums.to_s
 
         settle_money = @product1.prepay_percentage * @product1.selled_nums * @product1.settle_price
-        all("tbody tr")[0].find(".settle_money").text.should == settle_money.to_s
+        all("tbody tr")[0].find(".settle_money").text.should == '%0.2f' % settle_money
       end
     end
 
@@ -121,12 +121,12 @@ describe "GroupBuys" do
         all("tbody tr")[0].find(".refund_nums").text.should == "100"
 
         settle_money = @product2.settle_price * 1001
-        all("tbody tr")[0].find(".settle_money").text.should == settle_money.to_s
+        all("tbody tr")[0].find(".settle_money").text.should == '%0.2f' % settle_money
       end
     end
 
     it 'confirms handlement of checked groupbuy records', :js => true do
-      @groupbuy1 = GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
+      @groupbuy1 = GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理", :dsr => 4.1, :real_settle_money => 0
       visit group_buys_path
 
       search_a_product "测试项目1"
