@@ -20,6 +20,11 @@ class GroupBuysController < ApplicationController
         groupbuy['settle_money'] = product['prepay_percentage'] * product['selled_nums'] * product['settle_price']
         groupbuy['real_settle_money'] = 0
       else
+        if params[:group_buy][:settle_nums].to_i <= 0
+          redirect_to :back, :flash => { :error => '结算份数必须大于0' }
+          return
+        end
+
         groupbuy['settle_type'] = "结算"
         groupbuy['refund_nums'] = params[:group_buy][:refund_nums].to_i
         groupbuy['settle_nums'] = params[:group_buy][:settle_nums].to_i
@@ -46,10 +51,15 @@ class GroupBuysController < ApplicationController
       end
       groupbuy['state'] = "未处理"
 
-      GroupBuy.create groupbuy
+      group_buy_record = GroupBuy.new groupbuy
+      if group_buy_record.save
+        redirect_to :back, :notice => '成功创建结算记录.' 
+      else
+        render :action => 'index'
+      end
 
       # redirect_to group_buys_path + "?product_name=#{params[:product_name]}&stat_date=#{params[:stat_date]}"
-      redirect_to :back
+      # redirect_to :back
     end
 
     # PUT /businesses/1
@@ -85,7 +95,7 @@ class GroupBuysController < ApplicationController
         format.html { redirect_to group_buys_url }
         format.json { head :no_content }
       end
-  end
+    end
 
     def confirm_record
       groupbuy_id_list = JSON.parse(params[:groupbuy_id_list])
@@ -151,6 +161,8 @@ class GroupBuysController < ApplicationController
         :type => 'text',
         :disposition => "attachment; filename=#{file_name}"
     end
+
+    protected
 
     def init_variable
       @current_product = Product.find_by_name(params[:product_name])
