@@ -22,3 +22,15 @@ div.stat_action_bar_wrapper {
         margin: 0;
     }
 }
+
+/* ------------------------------
+  pagination
+------------------------------ */
+nav.pagination {
+    text-align: right;
+    clear: both;
+    width: 300px;
+    margin: 0;
+    margin-left: 10px;
+    display: inline;
+}

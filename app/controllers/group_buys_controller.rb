@@ -214,9 +214,9 @@ class GroupBuysController < ApplicationController
       end
 
       if !clause.blank?
-        @group_buys = GroupBuy.where(clause).order("product_name, updated_at desc")
+        @group_buys = GroupBuy.where(clause).order("product_name, updated_at desc").page(params[:page]).per(10)
       else
-        @group_buys = GroupBuy.order("product_name, updated_at desc").all
+        @group_buys = GroupBuy.order("product_name, updated_at desc").page(params[:page]).per(10)
       end
     end
 end
