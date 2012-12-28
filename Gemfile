@@ -9,6 +9,8 @@ gem 'sqlite3', :group => [:development, :test]
 # heroku doesn't support sqlite3 but PostgreSQL database => pg
 group :production do
   gem 'pg'
+  # performance tracking
+  gem 'newrelic_rpm'
 end
 
 
@@ -50,6 +52,12 @@ group :test, :development do
     gem 'database_cleaner'
 end
 
+group :development do
+  # required by chrome rails-panel extension
+  # https://github.com/dejan/rails_panel
+  gem 'meta_request', '0.2.0'
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -71,5 +79,3 @@ gem 'rb-fsevent', '~> 0.9.1'
 # 表单
 gem "simple_form"
 
-# performance tracking
-gem 'newrelic_rpm'

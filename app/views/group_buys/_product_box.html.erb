@@ -1,4 +1,4 @@
-<% if !params[:product_name].blank? %>
+<% if !@current_product.blank? %>
     <div class="stat_wrapper product_box">
         <div id="product_info" class="pull-left span4">
             <dl class="dl-horizontal">
@@ -27,30 +27,9 @@
 
         <%= simple_form_for @group_buy, :html => {:class => 'form_horizontal pull-right span4'} do |f| %>
             <fieldset>
-                <% if !params[:product_name].blank? %>
-                    <% if is_prepay_settlement?(params[:product_name]) %>
-                        <%= content_tag :div, "点击新增一条预存结算记录" %>
-                        <%= hidden_field_tag 'is_prepay', true %>
-                    <% else %> 
-                        <%= f.input :settle_nums, :label => "结算份数"%>
-                        <%= f.input :refund_nums, :label => "退款份数"%>
-                        <%= f.input :dsr, :label => "DSR评分"%>
-                    <% end %>
-                    <% if params[:id].blank? %>
-                      <%= f.submit :value => "新增", :id => "btn_add_group",:class => "btn btn-primary" %>
-                    <% else %>
-                      <div class='action_bar'>
-                          <%= f.submit :value => "修改", :id => "btn_update_group", :class => "btn btn-primary" %>
-                          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      group_buy_path(@group_buy),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-primary btn-danger' %>
-                      </div>
-                    <% end %>
-                    <%= hidden_field_tag 'product_name', params[:product_name] %>
-                    <%= hidden_field_tag 'stat_date', params[:stat_date] %>
-                <% end %>
+                <%= render_new_group_buy(f, @current_product, @group_buy) %>
+                <%= hidden_field_tag 'product_name', @current_product.name %>
+                <%= hidden_field_tag 'stat_date', params[:stat_date] %>
             </fieldset>
         <% end %>
     </div>
