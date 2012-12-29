@@ -76,7 +76,7 @@ class GroupBuysController < ApplicationController
 
       respond_to do |format|
         if @group_buy.update_attributes(params[:group_buy])
-          format.html { redirect_to back_url, notice: 'GroupBuy was successfully updated.' }
+          format.html { redirect_to back_url, notice: '团购结算记录更新成功!' }
           format.json { head :no_content }
         else
           format.html { redirect_to back_url }
@@ -133,7 +133,7 @@ class GroupBuysController < ApplicationController
       exported_results = []
       nth_record = 0
       settle_records.each do |record|
-        product_records = GroupBuy.where('product_name = ?', record.product_name).order('created_at')
+        product_records = GroupBuy.where('product_name = ?', record.product_name).order('stat_op_date')
         product_records.each_with_index do |r, i|
           if record.id == r.id    
             nth_record = i + 1
@@ -205,18 +205,21 @@ class GroupBuysController < ApplicationController
         # Date can't parse 'yyyy-mm' format
       stat_date = Date.parse @current_year_month + "-01"
 
-      begin_date = stat_date.beginning_of_month().strftime("%Y-%m-%d")
-      end_date = stat_date.end_of_month().strftime("%Y-%m-%d")
-      clause[:updated_at] = begin_date..end_date
+      # begin_date = stat_date.beginning_of_month().strftime("%Y-%m-%d")
+      # end_date = stat_date.end_of_month().strftime("%Y-%m-%d")
+      # clause[:updated_at] = begin_date..end_date
+      begin_date = stat_date.next_month.beginning_of_month().strftime("%Y-%m-%d")
+      end_date = stat_date.next_month.end_of_month().strftime("%Y-%m-%d")
+      clause[:stat_op_date] = begin_date..end_date
       # end
       if !params[:product_name].blank?
         clause[:product_name] = params[:product_name]
       end
 
       if !clause.blank?
-        @group_buys = GroupBuy.where(clause).order("product_name, updated_at desc").page(params[:page]).per(10)
+        @group_buys = GroupBuy.where(clause).order("product_name, stat_op_date desc").page(params[:page]).per(10)
       else
-        @group_buys = GroupBuy.order("product_name, updated_at desc").page(params[:page]).per(10)
+        @group_buys = GroupBuy.order("product_name, stat_op_date desc").page(params[:page]).per(10)
       end
     end
 end

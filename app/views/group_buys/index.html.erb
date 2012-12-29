@@ -10,7 +10,7 @@
             <tr>
                 <th></th>
                 <th>项目名</th> <th>结算类型</th> <th>结算份数</th> <th>结算金额</th> <th>实际结算金额</th>
-                <th>退款份数</th> <th>DSR评分</th> <th>操作时间</th> <th>状态</th>
+                <th>退款份数</th> <th>DSR评分</th> <th>结算操作时间</th> <th>状态</th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +26,7 @@
             <td class="real_settle_money"><%= '%0.2f' % group_buy.real_settle_money %></td>
             <td class="refund_nums"><%= group_buy.refund_nums %></td>
             <td class="refund_nums"><%= group_buy.dsr %></td>
-            <td class="update_date"><%= group_buy.updated_at %></td>
+            <td class="update_date"><%= group_buy.stat_op_date %></td>
             <td class="settle_state"><%= group_buy.state %></td>
         <% end %>
         </tbody>

@@ -1,7 +1,4 @@
 "zh-CN":
-  time:
-    formats:
-      default: "%Y-%m-%d %H:%M:%S"
   helpers:
     actions: "操作"
     links:

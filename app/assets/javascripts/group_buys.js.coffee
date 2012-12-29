@@ -31,6 +31,11 @@ jQuery ->
             checkbox.attr('checked', !checked)
             return false
 
+    $('.datepicker').datepicker({
+        "format" : 'yyyy-mm-dd'
+    })
+
+
     # $("#group_buy_table_wrapper tbody tr.group_buy").click (event) ->
     #     event.preventDefault()
     #     todo: support specifed group_buy record change

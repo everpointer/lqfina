@@ -105,7 +105,7 @@ class BusinessesController < ApplicationController
           selled_price = product.selled_price
           settle_price = product.settle_price
           # group_buys = product.group_buys.where('created_at >= ? and created_at <= ? and settle_type != ?', group_buy_begin_date, group_buy_end_date, '预付')
-          group_buys = product.group_buys.where('created_at >= ? and created_at <= ? and settle_type != ? and state = ?', group_buy_begin_date, group_buy_end_date, '预付', '已处理')
+          group_buys = product.group_buys.where('stat_op_date >= ? and stat_op_date <= ? and settle_type != ? and state = ?', group_buy_begin_date, group_buy_end_date, '预付', '已处理')
 
           if group_buys.length > 0
             settle_nums = group_buys[0][:settle_nums]
@@ -139,7 +139,7 @@ class BusinessesController < ApplicationController
       if busi_stat_record
         redirect_to :action => 'stat', :id => params[:id]
       else
-        redirect_to :back, :alert => "添加业务结算记录失败"
+        redirect_to :back, :flash => { :error => "添加业务结算记录失败" }
       end
     end
 
