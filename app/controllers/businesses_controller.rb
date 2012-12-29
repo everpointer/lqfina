@@ -99,7 +99,7 @@ class BusinessesController < ApplicationController
 
       @business.partners.each do |partner|
         # products = partner.products.where('begin_date >= ? and begin_date <= ?', busi_begin_date, busi_end_date)
-        products = partner.products.where('begin_date < ? and end_date >= ?', busi_begin_date, busi_begin_date)
+        products = partner.products.where('begin_date <= ? and end_date >= ?', busi_end_date, busi_begin_date)
         products.each do |product|
 
           selled_price = product.selled_price

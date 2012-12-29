@@ -3,7 +3,7 @@
 <div class="stat_wrapper stat_action_bar_wrapper">
     <form action="#" class="form_inline" id="stat_action_bar">
             <label for="stat_date">结算月份</label>
-            <input type="text" id="stat_date" name="stat_date" placeholder="统计年月,格式：yyyy-mm" value=<%= @current_year_month %> >
+            <input type="text" id="stat_date" name="stat_date" placeholder="统计年月,格式：yyyy-mm" value="<%= @current_year_month %>" class="datepicker">
             <button id="search_stat_result" class="btn btn-primary">查询</button>
     </form>
 </div>
