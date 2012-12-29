@@ -98,12 +98,14 @@ class BusinessesController < ApplicationController
       group_buy_end_date = busi_begin_date.to_date.next_month.end_of_month.to_s
 
       @business.partners.each do |partner|
-        products = partner.products.where('begin_date >= ? and begin_date <= ?', busi_begin_date, busi_end_date)
+        # products = partner.products.where('begin_date >= ? and begin_date <= ?', busi_begin_date, busi_end_date)
+        products = partner.products.where('begin_date < ? and end_date >= ?', busi_begin_date, busi_begin_date)
         products.each do |product|
 
           selled_price = product.selled_price
           settle_price = product.settle_price
-          group_buys = product.group_buys.where('created_at >= ? and created_at <= ? and settle_type != ?', group_buy_begin_date, group_buy_end_date, '预付')
+          # group_buys = product.group_buys.where('created_at >= ? and created_at <= ? and settle_type != ?', group_buy_begin_date, group_buy_end_date, '预付')
+          group_buys = product.group_buys.where('created_at >= ? and created_at <= ? and settle_type != ? and state = ?', group_buy_begin_date, group_buy_end_date, '预付', '已处理')
 
           if group_buys.length > 0
             settle_nums = group_buys[0][:settle_nums]
