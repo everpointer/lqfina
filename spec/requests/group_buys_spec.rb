@@ -3,7 +3,7 @@ require 'spec_helper'
 
 def search_a_product(product_name)
   within "#stat_action_bar" do
-        fill_in "stat_date",  :with => DateTime.now.strftime('%Y-%m')
+        fill_in "stat_date",  :with => DateTime.now.prev_month.strftime('%Y-%m')
         select product_name, :from => 'product_list'
         click_button '查询'
   end 
@@ -36,7 +36,7 @@ describe "GroupBuys" do
       :settle_price => 50,
       :is_prepay => true,
       :prepay_percentage => 0.5,
-      :begin_date => Date.today,
+      :begin_date => Date.today.prev_month,
       :end_date => Date.today.next_month,
       :selled_nums => 100,
       :partner_id => @partner1.id
@@ -49,7 +49,7 @@ describe "GroupBuys" do
       :settle_price => 50,
       :is_prepay => false,
       :prepay_percentage => 0.5,
-      :begin_date => Date.today,
+      :begin_date => Date.today.prev_month,
       :end_date => Date.today.next_month,
       :selled_nums => 100,
       :partner_id => @partner1.id
