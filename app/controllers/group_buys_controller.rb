@@ -167,11 +167,7 @@ class GroupBuysController < ApplicationController
     def init_variable
       @current_product = Product.find_by_name(params[:product_name])
 
-      if params[:stat_date].blank?
-        @current_year_month = DateTime.now.strftime('%Y-%m')
-      else
-        @current_year_month = params[:stat_date]
-      end
+      @current_year_month = parse_stat_date(params[:stat_date])
     end
 
     def init_product_list

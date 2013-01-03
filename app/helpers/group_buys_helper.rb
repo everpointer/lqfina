@@ -48,4 +48,5 @@ module GroupBuysHelper
       end
       html_content.html_safe
   end
+
 end
