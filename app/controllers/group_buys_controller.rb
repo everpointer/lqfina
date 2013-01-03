@@ -1,11 +1,11 @@
 # encoding: utf-8
 class GroupBuysController < ApplicationController
     before_filter :init_variable, :only=>[:index]
-    before_filter :init_product_list, :only=>[:index]
     before_filter :init_record_add_form, :only=>[:index]
     before_filter :init_stat_records, :only=>[:index]
 
     def index
+      @total_product_list = get_product_list()
     end
 
     def create
@@ -170,10 +170,6 @@ class GroupBuysController < ApplicationController
       @current_year_month = parse_stat_date(params[:stat_date])
     end
 
-    def init_product_list
-      @total_product_list = Product.all
-    end
-
     def init_record_add_form
       if params[:id].blank?
         @group_buy = GroupBuy.new 
@@ -217,5 +213,10 @@ class GroupBuysController < ApplicationController
       else
         @group_buys = GroupBuy.order("product_name, stat_op_date desc").page(params[:page]).per(10)
       end
+    end
+
+    private
+    def get_product_list
+      Product.all
     end
 end
