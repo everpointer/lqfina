@@ -1,9 +1,10 @@
 # encoding: utf-8
 class GroupBuysController < ApplicationController
-    before_filter :init_variable, :only=>[:index]
     before_filter :init_stat_records, :only=>[:index]
 
     def index
+      @current_product = Product.find_by_name(params[:product_name])
+      @current_year_month = parse_stat_date_string(params[:stat_date])
       @total_product_list = get_product_list()
       @group_buy = get_group_buy(params[:id])
     end
@@ -164,30 +165,11 @@ class GroupBuysController < ApplicationController
 
     protected
 
-    def init_variable
-      @current_product = Product.find_by_name(params[:product_name])
-
-      @current_year_month = parse_stat_date(params[:stat_date])
-    end
-
-    def product_is_prepay?(product_name)
-      if !product_name.blank?
-        product = Product.where("name = ?", product_name).find(1)
-        if product[:is_prepay]
-          return true
-        else
-          return false
-        end
-      else
-        return nil
-      end
-    end
-
     def init_stat_records
       clause = {}
       # if !params[:stat_date].blank?
         # Date can't parse 'yyyy-mm' format
-      stat_date = Date.parse @current_year_month + "-01"
+      stat_date = parse_stat_date(params[:stat_date])
 
       # begin_date = stat_date.beginning_of_month().strftime("%Y-%m-%d")
       # end_date = stat_date.end_of_month().strftime("%Y-%m-%d")
