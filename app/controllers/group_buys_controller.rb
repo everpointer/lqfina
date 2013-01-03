@@ -1,12 +1,14 @@
 # encoding: utf-8
 class GroupBuysController < ApplicationController
-    before_filter :init_stat_records, :only=>[:index]
-
     def index
       @current_product = Product.find_by_name(params[:product_name])
       @current_year_month = parse_stat_date_string(params[:stat_date])
       @total_product_list = get_product_list()
       @group_buy = get_group_buy(params[:id])
+
+      stat_date = parse_stat_date(params[:stat_date])
+      @presenter = GroupBuys::IndexPresenter.new(stat_date, params[:product_name])
+      @group_buys = @presenter.get_stat_records(params[:page], 10)
     end
 
     def create
@@ -161,32 +163,6 @@ class GroupBuysController < ApplicationController
       send_data export_content,
         :type => 'text',
         :disposition => "attachment; filename=#{file_name}"
-    end
-
-    protected
-
-    def init_stat_records
-      clause = {}
-      # if !params[:stat_date].blank?
-        # Date can't parse 'yyyy-mm' format
-      stat_date = parse_stat_date(params[:stat_date])
-
-      # begin_date = stat_date.beginning_of_month().strftime("%Y-%m-%d")
-      # end_date = stat_date.end_of_month().strftime("%Y-%m-%d")
-      # clause[:updated_at] = begin_date..end_date
-      begin_date = stat_date.next_month.beginning_of_month().strftime("%Y-%m-%d")
-      end_date = stat_date.next_month.end_of_month().strftime("%Y-%m-%d")
-      clause[:stat_op_date] = begin_date..end_date
-      # end
-      if !params[:product_name].blank?
-        clause[:product_name] = params[:product_name]
-      end
-
-      if !clause.blank?
-        @group_buys = GroupBuy.where(clause).order("product_name, stat_op_date desc").page(params[:page]).per(10)
-      else
-        @group_buys = GroupBuy.order("product_name, stat_op_date desc").page(params[:page]).per(10)
-      end
     end
 
     private
