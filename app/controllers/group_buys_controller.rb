@@ -1,7 +1,7 @@
 # encoding: utf-8
 class GroupBuysController < ApplicationController
     def index
-      @current_product = Product.find_by_name(params[:product_name])
+      @current_product = get_product(params[:product_name])
       @current_year_month = parse_stat_date_string(params[:stat_date])
       @total_product_list = get_product_list()
       @group_buy = get_group_buy(params[:id])
@@ -16,41 +16,18 @@ class GroupBuysController < ApplicationController
       groupbuy['product_name'] = params[:product_name]
       product = Product.find_by_name(groupbuy['product_name'])
 
-
       if params[:is_prepay] == "true"
         groupbuy['settle_type'] = "预付"
         groupbuy['settle_nums'] = product['selled_nums'] 
-        groupbuy['settle_money'] = product['prepay_percentage'] * product['selled_nums'] * product['settle_price']
-        groupbuy['real_settle_money'] = 0
       else
         if params[:group_buy][:settle_nums].to_i <= 0
           redirect_to :back, :flash => { :error => '结算份数必须大于0' }
           return
         end
-
         groupbuy['settle_type'] = "结算"
         groupbuy['refund_nums'] = params[:group_buy][:refund_nums].to_i
         groupbuy['settle_nums'] = params[:group_buy][:settle_nums].to_i
         groupbuy['dsr'] = params[:group_buy][:dsr].to_f
-        groupbuy['settle_money'] = groupbuy['settle_nums'] * product['settle_price']
-        # 计算实际结算金额
-        if !product.is_prepay
-          groupbuy['real_settle_money'] = groupbuy['settle_nums'] * product['settle_price']
-        else
-          settle_group_buys = product.group_buys.select { |g| g['settle_type'] == '结算'}
-          prepay_records = product.group_buys.select { |g| g['settle_type'] == '预付'}
-          prepay_money = prepay_records[0]['settle_money']
-          already_settled_money = 0
-          settle_group_buys.each { |g| already_settled_money += g[:settle_money] }
-
-          if already_settled_money >= prepay_money
-            groupbuy['real_settle_money'] =  groupbuy['settle_money']
-          elsif (already_settled_money + groupbuy['settle_money']) > prepay_money 
-            groupbuy['real_settle_money'] = already_settled_money + groupbuy['settle_money'] - prepay_money
-          else
-            groupbuy['real_settle_money'] = 0
-          end
-        end
       end
       groupbuy['state'] = "未处理"
 
@@ -60,9 +37,6 @@ class GroupBuysController < ApplicationController
       else
         render :action => 'index'
       end
-
-      # redirect_to group_buys_path + "?product_name=#{params[:product_name]}&stat_date=#{params[:stat_date]}"
-      # redirect_to :back
     end
 
     # PUT /businesses/1
@@ -175,6 +149,14 @@ class GroupBuysController < ApplicationController
         GroupBuy.new 
       else
         GroupBuy.find(id)
+      end
+    end
+
+    def get_product(product_name)
+      if product_name.blank?
+        nil
+      else
+        Product.find_by_name(params[:product_name])
       end
     end
 
