@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Product < ActiveRecord::Base
   has_many :group_buys, :foreign_key => 'product_name', :primary_key => :name
   belongs_to :partner
@@ -27,4 +28,15 @@ class Product < ActiveRecord::Base
   validates :begin_date,     :presence  => true
   validates :end_date,     :presence  => true
 
+  def is_prepay_settlement?
+    if self.is_prepay
+      is_prepay = true
+      self.group_buys.each do |group_buy|
+        is_prepay = false if group_buy[:settle_type] == '预付'
+      end
+    else
+      is_prepay = false
+    end
+    is_prepay
+  end
 end

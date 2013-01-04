@@ -18,27 +18,7 @@ class GroupBuysController < ApplicationController
     end
 
     def create
-      groupbuy = {}
-      groupbuy['product_name'] = params[:product_name]
-      product = Product.find_by_name(groupbuy['product_name'])
-
-      if params[:is_prepay] == "true"
-        groupbuy['settle_type'] = "预付"
-        groupbuy['settle_nums'] = product['selled_nums'] 
-      else
-        if params[:group_buy][:settle_nums].to_i <= 0
-          redirect_to :back, :flash => { :error => '结算份数必须大于0' }
-          return
-        end
-        groupbuy['settle_type'] = "结算"
-        groupbuy['refund_nums'] = params[:group_buy][:refund_nums].to_i
-        groupbuy['settle_nums'] = params[:group_buy][:settle_nums].to_i
-        groupbuy['dsr'] = params[:group_buy][:dsr].to_f
-      end
-      groupbuy['state'] = "未处理"
-      groupbuy['stat_date'] = parse_stat_date_string(params[:stat_date])
-
-      group_buy_record = GroupBuy.new groupbuy
+      group_buy_record = GroupBuy.new params[:group_buy]
       if group_buy_record.save
         redirect_to :back, :notice => '成功创建结算记录.' 
       else

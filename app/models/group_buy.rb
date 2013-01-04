@@ -1,8 +1,5 @@
 # encoding: utf-8
 class GroupBuy < ActiveRecord::Base
-  before_create :set_stat_op_date
-  before_save :make_money
-
   attr_accessible :product_name, :refund_nums, :settle_type, :settle_money,
                   :settle_nums, :state, :dsr, :real_settle_money, :stat_op_date, :stat_date
 
@@ -12,6 +9,15 @@ class GroupBuy < ActiveRecord::Base
   validates_format_of :stat_date, with: /\d{4}-(((0[1-9])|(1[0-2])))/
 
   scope :month_stat, ->(stat_date) { where(:stat_date => stat_date) }
+
+  before_validation :make_settle_type
+  before_save :make_money
+  before_create :set_stat_op_date
+
+  protected
+  def validate
+    errors.add(:settle_nums, "必须大于0") if settle_nums <= 0
+  end
 
   private
   def set_stat_op_date
@@ -33,6 +39,16 @@ class GroupBuy < ActiveRecord::Base
     already_settled_money = 0
     settle_group_buys.each { |g| already_settled_money += g[:settle_money] }
     already_settled_money
+  end
+
+  def make_settle_type
+    product = self.product
+    if self.settle_type == "预付" || product.is_prepay_settlement?
+      self.settle_type = "预付"
+      self.settle_nums = product.selled_nums
+    else
+      self.settle_type = "结算"
+    end 
   end
 
   def make_money
@@ -60,5 +76,4 @@ class GroupBuy < ActiveRecord::Base
       end
     end
   end
-
 end

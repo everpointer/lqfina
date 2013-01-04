@@ -35,9 +35,8 @@ module GroupBuysHelper
   def render_new_group_buy(form, current_product, group_buy)
      html_content = ""
      if current_product
-        if is_prepay_settlement?(current_product)
+        if current_product.is_prepay_settlement?
           html_content << content_tag(:div, "点击新增一条预存结算记录")
-          html_content << hidden_field_tag('is_prepay', true)
         else
           html_content << form.input(:settle_nums, :label => "结算份数")
           html_content << form.input(:refund_nums, :label => "退款份数")
