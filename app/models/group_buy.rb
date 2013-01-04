@@ -3,15 +3,18 @@ class GroupBuy < ActiveRecord::Base
   before_create :set_stat_op_date
   before_save :make_money
 
+  attr_accessible :product_name, :refund_nums, :settle_type, :settle_money,
+                  :settle_nums, :state, :dsr, :real_settle_money, :stat_op_date, :stat_date
+
   belongs_to :product, :foreign_key => :product_name, :primary_key => :name
 
-  attr_accessible :product_name, :refund_nums, :settle_type, :settle_money, :settle_nums, :state, :dsr, :real_settle_money, :stat_op_date
-
-  validates :settle_nums, :presence  => true
+  validates_presence_of :settle_nums, :stat_date
+  validates_format_of :stat_date, with: /\d{4}-(((0[1-9])|(1[0-2])))/
 
   scope :month_stat, ->(stat_date) { where(:stat_op_date => stat_date.next_month.beginning_of_month().strftime("%Y-%m-%d")..
                                                             stat_date.next_month.end_of_month().strftime("%Y-%m-%d"))
                                    }
+
   private
   def set_stat_op_date
     self.stat_op_date = Time.now
@@ -19,7 +22,12 @@ class GroupBuy < ActiveRecord::Base
 
   def get_prepay_money(group_buys)
     prepay_records = group_buys.select { |g| g['settle_type'] == '预付'}
-    prepay_money = prepay_records[0]['settle_money'] || 0
+
+    prepay_money = if !prepay_records.nil? && prepay_records.length > 0
+      prepay_records[0]['settle_money']
+    else
+      0
+    end
   end
 
   def get_already_settled_money(group_buys)

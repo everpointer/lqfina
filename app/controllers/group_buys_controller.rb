@@ -30,12 +30,13 @@ class GroupBuysController < ApplicationController
         groupbuy['dsr'] = params[:group_buy][:dsr].to_f
       end
       groupbuy['state'] = "未处理"
+      groupbuy['stat_date'] = parse_stat_date_string(params[:stat_date])
 
       group_buy_record = GroupBuy.new groupbuy
       if group_buy_record.save
         redirect_to :back, :notice => '成功创建结算记录.' 
       else
-        render :action => 'index'
+        render :index
       end
     end
 

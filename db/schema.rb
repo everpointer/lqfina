@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121229021850) do
+ActiveRecord::Schema.define(:version => 20130104011718) do
 
   create_table "business_stat_records", :force => true do |t|
     t.integer  "business_id",               :null => false
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20121229021850) do
     t.float    "dsr"
     t.decimal  "real_settle_money",                :precision => 12, :scale => 2
     t.datetime "stat_op_date"
+    t.string   "stat_date",         :limit => 20
   end
 
   create_table "partners", :force => true do |t|
