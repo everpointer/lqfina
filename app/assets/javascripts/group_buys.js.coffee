@@ -69,7 +69,7 @@ jQuery ->
             alert('请选中1条记录进行修改')
         else
             window.location = 
-                window.location.origin+ window.location.pathname + "?stat_date="+checked_records[0].stat_date+"&product_name="+checked_records[0].product_name + "&id="+checked_records[0].id
+                window.location.origin+ "/group_buys/" + checked_records[0].id
 
 
     local_confirm_record = (local_id_list, handled_id_list, confirm_flag) ->

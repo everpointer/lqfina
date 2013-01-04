@@ -1,13 +1,19 @@
 # encoding: utf-8
 class GroupBuysController < ApplicationController
     def index
-      @current_product = get_product(params[:product_name])
-      @current_year_month = parse_stat_date_string(params[:stat_date])
-      @total_product_list = get_product_list()
       @group_buy = get_group_buy(params[:id])
+      if @group_buy.new_record?
+        product_name = params[:product_name]
+        @stat_date = parse_stat_date_string(params[:stat_date])
+        @current_product = get_product(product_name)
+      else
+        @current_product = @group_buy.product
+        product_name = @current_product.name
+        @stat_date = @group_buy.stat_date
+      end
+      @total_product_list = get_product_list()
 
-      stat_date = parse_stat_date(params[:stat_date])
-      @presenter = GroupBuys::IndexPresenter.new(@current_year_month, params[:product_name])
+      @presenter = GroupBuys::IndexPresenter.new(@stat_date, @current_product)
       @group_buys = @presenter.get_stat_records(params[:page], 10)
     end
 
@@ -157,7 +163,7 @@ class GroupBuysController < ApplicationController
       if product_name.blank?
         nil
       else
-        Product.find_by_name(params[:product_name])
+        Product.find_by_name(product_name)
       end
     end
 

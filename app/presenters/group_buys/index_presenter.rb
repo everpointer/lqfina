@@ -1,15 +1,15 @@
 module GroupBuys
   class IndexPresenter
-    def initialize(stat_date, product_name = nil) 
+    def initialize(stat_date, product = nil) 
       @stat_date = stat_date
-      @product_name = product_name
+      @product = product
     end
 
     def get_stat_records(page = 1, nums = nil)
-      if @product_name.blank? || @product_name.empty?
+      if @product_name.nil?
         GroupBuy.month_stat(@stat_date).order("product_name, stat_op_date desc").page(page).per(nums)
       else
-        GroupBuy.month_stat(@stat_date).where(product_name: @product_name).order("product_name, stat_op_date desc").page(page).per(nums)
+        @product.group_buys.month_stat(@stat_date).order("product_name, stat_op_date desc").page(page).per(nums)
       end
     end
   end

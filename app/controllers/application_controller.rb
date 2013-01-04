@@ -13,9 +13,9 @@ class ApplicationController < ActionController::Base
 
   def parse_stat_date_string(stat_date)
     if stat_date =~ REX_STAT_DATE
-      @current_year_month = stat_date.slice(0, STAT_DATE_FORMAT_LENGTH)
+      stat_date.slice(0, STAT_DATE_FORMAT_LENGTH)
     else
-      @current_year_month = DateTime.now.strftime(STAT_DATE_FORMAT)
+      DateTime.now.strftime(STAT_DATE_FORMAT)
     end
   end
 

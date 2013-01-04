@@ -12,8 +12,8 @@ module GroupBuysHelper
     is_prepay
   end
 
-  def get_month_of_year_month(current_year_month)
-    Date.parse(current_year_month + "-01").strftime("%m")
+  def get_month_of_year_month(stat_date)
+    Date.parse(stat_date + "-01").strftime("%m")
   end
 
   def group_buy_action_buttons(group_buy)
