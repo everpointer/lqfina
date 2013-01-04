@@ -1,5 +1,7 @@
 LqFinance::Application.routes.draw do
 
+  match 'group_buys/confirm_record' => "group_buys#confirm_record"
+  match 'group_buys/export_finance_records' => "group_buys#export_finance_records"
   match 'group_buys/:id(.:format)' => "group_buys#index", :via => :get, :as => :group_buy
 
   resources :group_buys
@@ -8,9 +10,6 @@ LqFinance::Application.routes.draw do
   resources :products
 
   root :to =>  "group_buys#index"
-
-  match 'group_buys/confirm_record' => "group_buys#confirm_record"
-  match 'group_buys/export_finance_records' => "group_buys#export_finance_records"
 
   match 'businesses/:id/stat'         => 'businesses#stat', :as => 'stat_business'
   match 'businesses/:id/create_stat'  => 'businesses#create_stat'
