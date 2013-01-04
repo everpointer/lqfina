@@ -35,7 +35,7 @@ class GroupBuy < ActiveRecord::Base
   end
 
   def get_already_settled_money(group_buys)
-    settle_group_buys = group_buys.select { |g| g['settle_type'] == '结算'}
+    settle_group_buys = group_buys.select { |g| g['settle_type'] == '结算' && self.id != g.id }
     already_settled_money = 0
     settle_group_buys.each { |g| already_settled_money += g[:settle_money] }
     already_settled_money
@@ -60,10 +60,6 @@ class GroupBuy < ActiveRecord::Base
     # 预付类型，本次操作为结算
     elsif product.is_prepay
       self.settle_money = self.settle_nums * product['settle_price']
-      self.real_settle_money = self.settle_money
-    # 结算类型，本次操作为结算
-    else
-      self.settle_money = self.settle_nums * product['settle_price']
       group_buys = product.group_buys
       prepay_money = get_prepay_money(group_buys)
       already_settled_money = get_already_settled_money(group_buys)
@@ -74,6 +70,10 @@ class GroupBuy < ActiveRecord::Base
       else
         0
       end
+    # 结算类型，本次操作为结算
+    else
+      self.settle_money = self.settle_nums * product['settle_price']
+      self.real_settle_money = self.settle_money
     end
   end
 end
