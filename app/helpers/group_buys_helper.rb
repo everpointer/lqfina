@@ -41,7 +41,7 @@ module GroupBuysHelper
           html_content << form.input(:settle_nums, :label => "结算份数")
           html_content << form.input(:refund_nums, :label => "退款份数")
           html_content << form.input(:dsr, :label => "DSR评分")
-          html_content << form.input(:stat_op_date, :label => "结算操作时间", :as => :string, :input_html => {:class => 'datepicker'})
+          html_content << form.input(:stat_op_date, :label => "结算操作时间", :as => :string, :input_html => {:class => 'datepicker', :value => group_buy['stat_op_date']})
         end
         html_content << group_buy_action_buttons(group_buy)
       end
