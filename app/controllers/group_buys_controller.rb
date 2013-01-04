@@ -7,7 +7,7 @@ class GroupBuysController < ApplicationController
       @group_buy = get_group_buy(params[:id])
 
       stat_date = parse_stat_date(params[:stat_date])
-      @presenter = GroupBuys::IndexPresenter.new(stat_date, params[:product_name])
+      @presenter = GroupBuys::IndexPresenter.new(@current_year_month, params[:product_name])
       @group_buys = @presenter.get_stat_records(params[:page], 10)
     end
 

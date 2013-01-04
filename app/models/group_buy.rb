@@ -11,9 +11,7 @@ class GroupBuy < ActiveRecord::Base
   validates_presence_of :settle_nums, :stat_date
   validates_format_of :stat_date, with: /\d{4}-(((0[1-9])|(1[0-2])))/
 
-  scope :month_stat, ->(stat_date) { where(:stat_op_date => stat_date.next_month.beginning_of_month().strftime("%Y-%m-%d")..
-                                                            stat_date.next_month.end_of_month().strftime("%Y-%m-%d"))
-                                   }
+  scope :month_stat, ->(stat_date) { where(:stat_date => stat_date) }
 
   private
   def set_stat_op_date
