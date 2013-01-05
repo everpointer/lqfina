@@ -30,7 +30,7 @@ class GroupBuysController < ApplicationController
     # PUT /businesses/1.json
     def update
       @group_buy = GroupBuy.find(params[:id])
-      
+
       respond_to do |format|
         if @group_buy.update_attributes(params[:group_buy])
           format.html { redirect_to :back, notice: '团购结算记录更新成功!' }
@@ -56,30 +56,17 @@ class GroupBuysController < ApplicationController
 
     def confirm_record
       groupbuy_id_list = JSON.parse(params[:groupbuy_id_list])
-      confirm_flag =  params[:confirm_flag]
+      settle_state = params[:confirm_flag] == "true"? "已处理" : "未处理"
 
-      if confirm_flag == "true"
-        settle_state = "已处理"
+      if groupbuy_id_list.blank? || groupbuy_id_list.length <= 0
+        render :json => {nothing: true}
       else
-        settle_state = "未处理"
-      end
-
-      if !groupbuy_id_list.blank?
-        hanlded_id_list = []
-        result = GroupBuy.find(groupbuy_id_list).each do |group_buy|
-          group_buy.state = settle_state
-          group_buy.save
-          hanlded_id_list << group_buy.id
+        result = GroupBuy.where(id: groupbuy_id_list).update_all(state: settle_state)
+        if result
+            render :json => groupbuy_id_list
+        else
+            render :json => result.errors
         end
-        respond_to do |format|
-          format.html do
-            redirect_to :back 
-          end
-          format.json { render :json => hanlded_id_list.as_json }
-          format.js { render :nothing => true }
-        end
-      else
-       redirect_to :back 
       end
     end
 
