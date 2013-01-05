@@ -46,12 +46,9 @@ jQuery ->
         id_list_str = JSON.stringify id_list
 
         $.ajax
-            type: 'POST'
+            type: 'post'
             url: '/group_buys/confirm_record'
-            beforeSend: (xhr) ->
-                xhr.setRequestHeader("Accept", "application/json")
-                xhr.setRequestHeader 'X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')
-            data: {"groupbuy_id_list": id_list_str, "confirm_flag":confirm_flag}
+            data: {"groupbuy_id_list": id_list_str, "confirm_flag":confirm_flag, "_method":"put"}
             dataType: 'json'
             success: (data) ->
                 handled_id_list = data
