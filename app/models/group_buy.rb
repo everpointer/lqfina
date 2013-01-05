@@ -9,10 +9,23 @@ class GroupBuy < ActiveRecord::Base
   validates_format_of :stat_date, with: /\d{4}-(((0[1-9])|(1[0-2])))/
 
   scope :month_stat, ->(stat_date) { where(:stat_date => stat_date) }
+  scope :settled, -> { where(settle_type: "结算", state: '已处理') }
 
   before_validation :make_settle_type
   before_save :make_money
   before_create :set_stat_op_date
+
+  def dsr_rate
+    if dsr < 4.0
+      0
+    elsif dsr >= 4.0 && dsr < 4.3
+      0.5
+    elsif dsr >= 4.3 && dsr < 4.5
+      0.8
+    else
+      1
+    end
+  end
 
   protected
   def validate
