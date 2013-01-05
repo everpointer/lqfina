@@ -72,38 +72,22 @@ class GroupBuysController < ApplicationController
 
     def export_finance_records
       id_list = params[:id_list].split(',')
-      settle_records = GroupBuy.find id_list
+      settle_records = GroupBuy.includes(:product).find(id_list)
 
-      exported_results = []
-      nth_record = 0
-      settle_records.each do |record|
-        product_records = GroupBuy.where('product_name = ?', record.product_name).order('stat_op_date')
-        product_records.each_with_index do |r, i|
-          if record.id == r.id    
-            nth_record = i + 1
-          end
-        end
-
-        result = {:bank_acct => record.product.partner.bank_acct.slice(-4,4),
+      export_content = ""
+      settle_records.each_with_index do |record, index|
+        partner = record.product.partner
+        result = {:bank_acct => partner.bank_acct.slice(-4,4),
           :settle_money => record.settle_money,
           :online_date => record.product.begin_date,
           :product_name => record.product_name,
           :platform => record.product.platform,
-          :nth_record => nth_record,
-          :fina_contact_phone => record.product.partner.fina_contact_phone }
-
-        exported_results << result
-      end
-
-      export_content = ""
-      exported_results.each do |result|
+          :nth_record => index+1,
+          :fina_contact_phone => partner.fina_contact_phone }
         export_content << result.values.join("\t") + "\n"
       end
-
       file_name = "财务打款导出列表_" + DateTime.now.strftime('%Y%m%d%H%M%S') + ".txt"
-      send_data export_content,
-        :type => 'text',
-        :disposition => "attachment; filename=#{file_name}"
+      export_txt_file(file_name, export_content) 
     end
 
     private
@@ -127,4 +111,9 @@ class GroupBuysController < ApplicationController
       end
     end
 
+    def export_txt_file(name, content)
+      send_data content,
+        :type => 'text',
+        :disposition => "attachment; filename=#{name}"   
+    end
 end

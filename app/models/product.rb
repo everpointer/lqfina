@@ -1,6 +1,7 @@
 # encoding: utf-8
 class Product < ActiveRecord::Base
-  has_many :group_buys, :foreign_key => 'product_name', :primary_key => :name
+  has_many :group_buys, :foreign_key => 'product_name', 
+    :primary_key => :name
   belongs_to :partner
 
   attr_accessible :begin_date,
