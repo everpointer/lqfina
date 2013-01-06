@@ -16,8 +16,10 @@
   <dd><%= @product.settle_price %></dd>
   <dt><strong><%= t('products.is_prepay') %>:</strong></dt>
   <dd><%= convert_boolean_cn(@product.is_prepay) %></dd>
-  <dt><strong><%= t('products.prepay_percentage') %>:</strong></dt>
-  <dd><%= @product.prepay_percentage %></dd>
+  <% if @product.is_prepay %>
+    <dt><strong><%= t('products.prepay_percentage') %>:</strong></dt>
+    <dd><%= @product.prepay_percentage %></dd>
+  <% end %>
   <dt><strong><%= t('products.begin_date') %>:</strong></dt>
   <dd><%= @product.begin_date %></dd>
   <dt><strong><%= t('products.end_date') %>:</strong></dt>
