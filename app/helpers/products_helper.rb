@@ -6,6 +6,6 @@ module ProductsHelper
   end
 
   def get_partner_name(product)
-    product.partner.name
+    product.partner.name until product.partner_id.nil?
   end
 end
