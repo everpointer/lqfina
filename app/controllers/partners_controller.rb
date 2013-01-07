@@ -3,7 +3,7 @@ class PartnersController < ApplicationController
   # GET /partners
   # GET /partners.json
   def index
-    @partners = Partner.all
+    @partners = Partner.order("name desc").all
 
     respond_to do |format|
       format.html # index.html.erb

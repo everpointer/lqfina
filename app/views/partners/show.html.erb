@@ -11,13 +11,13 @@
   <dt><strong><%= model_class.human_attribute_name(:busi_contact_phone) %>:</strong></dt>
   <dd><%= @partner.busi_contact_phone %></dd>
   <dt><strong><%= model_class.human_attribute_name(:busi_contact_qq) %>:</strong></dt>
-  <dd><%= @partner.busi_contact_qq %></dd>
+  <dd><%= @partner.busi_contact_qq.empty? ? "无":@partner.busi_contact_qq %></dd>
   <dt><strong><%= model_class.human_attribute_name(:fina_contact_person) %>:</strong></dt>
   <dd><%= @partner.fina_contact_person %></dd>
   <dt><strong><%= model_class.human_attribute_name(:fina_contact_phone) %>:</strong></dt>
   <dd><%= @partner.fina_contact_phone %></dd>
   <dt><strong><%= model_class.human_attribute_name(:openning_bank) %>:</strong></dt>
-  <dd><%= @partner.openning_bank %></dd>
+  <dd><%= @partner.openning_bank.empty? ? "无" : @partner.openning_bank %></dd>
   <dt><strong><%= model_class.human_attribute_name(:openning_bank_person) %>:</strong></dt>
   <dd><%= @partner.openning_bank_person %></dd>
   <dt><strong><%= model_class.human_attribute_name(:bank_acct) %>:</strong></dt>
@@ -27,7 +27,7 @@
   <dt><strong><%= model_class.human_attribute_name(:has_pay_announce) %>:</strong></dt>
   <dd><%= convert_boolean_cn(@partner.has_pay_announce) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:business_id) %>:</strong></dt>
-  <dd><%= @partner.business_id %></dd>
+  <dd><%= @partner.business.nick_name %></dd>
 </dl>
 
 <div class="form-actions">

@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe "partners/show" do
   before(:each) do
+    @business = assign(:business, stub_model(Business,
+        :nick_name => "Nick Name",
+        :mobile => "Mobile",
+        :qq => "Qq"
+    ).as_new_record)
     @partner = assign(:partner, stub_model(Partner,
       :name => "Name",
       :busi_contact_person => "Busi Contact Person",
@@ -14,7 +19,8 @@ describe "partners/show" do
       :bank_acct => "Bank Acct",
       :is_public_accounting => false,
       :has_pay_announce => false,
-      :business_id => 1
+      :business_id => @business.id,
+      :business => @business
     ))
   end
 
