@@ -23,7 +23,10 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
-        <td><%= link_to product.name, product_path(product) %></td>
+        <td>
+          <%= link_to product.name, product_path(product) %>
+          <%= tmall_product_link(product.foreign_product_id) %>
+        </td>
         <td><%= product.busi_type %></td>
         <td><%= product.platform %></td>
         <td><%= product.selled_price %></td>
