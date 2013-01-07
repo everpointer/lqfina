@@ -10,7 +10,14 @@
   <%= f.input :begin_date, :as => :string, :label => t("products.begin_date"), :input_html => {:class => 'datepicker'}%>
   <%= f.input :end_date, :as => :string, :label => t("products.end_date"), :input_html => {:class => 'datepicker'} %>
   <%= f.input :selled_nums, :label => t("products.selled_nums") %>
-  <%= f.input :partner_id, :label => t("products.partner_id"), :collection => @partners.collect { |p| [p.name, p.id]} %>
+  <%= content_tag :div, :class => "control-group required" do %>
+    <%= label_tag :partner_name, t("products.partner_id"), :class => "control-label required" %>
+    <%= content_tag :div, :class => "controls" do %>
+      <%= text_field_tag :partner_name, get_partner_name(@product), :placeholder => "输入商户名,自动补全", :class => "typeahead", "data-provide" => "typeahead" %>
+    <% end %>
+  <% end %>
+  <%= f.hidden_field :partner_id %>
+  <%= hidden_field_tag :partner_collection, partner_collection(@partners).to_json %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary', :value => t("products.create_product") %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

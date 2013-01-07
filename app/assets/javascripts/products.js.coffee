@@ -4,6 +4,14 @@
 $ ->
     'use strict'
 
+    $("#partner_name.typeahead").typeahead
+        source: ->
+            partner_collection = JSON.parse($("#partner_collection").val())
+            Object.keys(partner_collection)
+        updater: (item) ->
+            partner_collection = JSON.parse $("#partner_collection").val()
+            $("#product_partner_id").val partner_collection[item]
+            item
 
     init = ->
         $('.datepicker').datepicker
