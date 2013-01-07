@@ -11,6 +11,7 @@
   <%= f.input :is_public_accounting %>
   <%= f.input :has_pay_announce %>
   <%= f.input :business_id, :collection => @businesses.collect{ |b| [b.nick_name, b.id]} , :as => :select %>
+  <%= f.input :industry_type_id, :collection => get_industry_types.collect{ |type| [type[:name], type[:id]]} , :as => :select %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary', :value => t('partners.create') %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

@@ -28,6 +28,8 @@
   <dd><%= convert_boolean_cn(@partner.has_pay_announce) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:business_id) %>:</strong></dt>
   <dd><%= @partner.business.nick_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:industry_type_id) %>:</strong></dt>
+  <dd><%= get_industry_type_name(@partner.industry_type_id) %></dd>
 </dl>
 
 <div class="form-actions">

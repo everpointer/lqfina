@@ -30,6 +30,7 @@
         is_public_accounting: "是否公帐"
         has_pay_announce: "是否有支付声明"
         business_id: "业务员"
+        industry_type_id: "行业类型"
         created_at: "创建时间"
         updated_at: "更新时间"
       business:

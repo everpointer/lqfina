@@ -41,4 +41,29 @@ module ApplicationHelper
       content_tag(:div,  flash[:alert], :class => "message alert")
     end
   end
+
+  def get_industry_types
+    [
+      { id: 1, name: "餐饮美食"},
+      { id: 2, name: "教育培训"},
+      { id: 3, name: "水果生鲜"},
+      { id: 4, name: "通讯话费"},
+      { id: 5, name: "生活服务"},
+      { id: 6, name: "休闲娱乐"},
+      { id: 7, name: "旅游酒店"},
+      { id: 8, name: "电影"},
+      { id: 9, name: "摄影写真"}
+    ]
+  end
+
+  def get_industry_type_name(id)
+    types = get_industry_types
+    for type in types
+      if id == type[:id]
+        name = type[:name]
+        break
+      end
+    end
+    name
+  end
 end
