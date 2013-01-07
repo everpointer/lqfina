@@ -6,10 +6,10 @@ module GroupBuys
     end
 
     def get_stat_records(page = 1, nums = nil)
-      if @product_name.nil?
-        GroupBuy.month_stat(@stat_date).order("product_name, stat_op_date desc").page(page).per(nums)
+      if @product.nil?
+        GroupBuy.month_stat(@stat_date).order("stat_op_date desc").page(page).per(nums)
       else
-        @product.group_buys.month_stat(@stat_date).order("product_name, stat_op_date desc").page(page).per(nums)
+        @product.group_buys.month_stat(@stat_date).order("stat_op_date desc").page(page).per(nums)
       end
     end
   end
