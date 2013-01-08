@@ -25,13 +25,6 @@
             </dl>
         </div>
 
-        <%= simple_form_for @group_buy, :html => {:class => 'form_horizontal pull-right span4'} do |f| %>
-            <fieldset>
-                <%= render_new_group_buy(f, @current_product, @group_buy) %>
-                <%= f.hidden_field 'product_name', value: @current_product.name %>
-                <%= f.hidden_field 'stat_date', value: @stat_date %>
-                <%= f.hidden_field 'settle_type' %>
-            </fieldset>
-        <% end %>
+        <%= render :partial => 'form', :locals => { :group_buy => @group_buy, :product => @current_product, :stat_date => @stat_date } %>
     </div>
 <% end %>

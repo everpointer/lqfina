@@ -1,0 +1,16 @@
+<%= simple_form_for group_buy, :html => {:class => 'form_horizontal pull-right span4'} do |f| %>
+  <fieldset>
+      <% if product.is_prepay_settlement? %>
+        <%= content_tag :div, "点击新增一条预存结算记录" %>
+      <% else %>
+        <%= f.input :settle_nums, :label => "结算份数" %>
+        <%= f.input :refund_nums, :label => "退款份数" %>
+        <%= f.input :dsr, :label => "DSR评分" %>
+        <%= f.input :stat_op_date, :label => "结算操作时间", :as => :string, :input_html => {:class => 'datepicker', :value => group_buy.stat_op_date} %>
+        <%= group_buy_action_buttons(group_buy) %>
+      <% end %>
+      <%= f.hidden_field 'product_name', value: product.name %>
+      <%= f.hidden_field 'stat_date', value: stat_date %>
+      <%= f.hidden_field 'settle_type' %>
+  </fieldset>
+<% end %>

@@ -32,20 +32,20 @@ module GroupBuysHelper
     end
   end
 
-  def render_new_group_buy(form, current_product, group_buy)
-     html_content = ""
-     if current_product
-        if current_product.is_prepay_settlement?
-          html_content << content_tag(:div, "点击新增一条预存结算记录")
-        else
-          html_content << form.input(:settle_nums, :label => "结算份数")
-          html_content << form.input(:refund_nums, :label => "退款份数")
-          html_content << form.input(:dsr, :label => "DSR评分")
-          html_content << form.input(:stat_op_date, :label => "结算操作时间", :as => :string, :input_html => {:class => 'datepicker', :value => group_buy['stat_op_date']})
-        end
-        html_content << group_buy_action_buttons(group_buy)
-      end
-      html_content.html_safe
-  end
+  # def render_new_group_buy(form, current_product, group_buy)
+  #    html_content = ""
+  #    if current_product
+  #       if current_product.is_prepay_settlement?
+  #         html_content << content_tag(:div, "点击新增一条预存结算记录")
+  #       else
+  #         html_content << form.input(:settle_nums, :label => "结算份数")
+  #         html_content << form.input(:refund_nums, :label => "退款份数")
+  #         html_content << form.input(:dsr, :label => "DSR评分")
+  #         html_content << form.input(:stat_op_date, :label => "结算操作时间", :as => :string, :input_html => {:class => 'datepicker', :value => group_buy['stat_op_date']})
+  #       end
+  #       html_content << group_buy_action_buttons(group_buy)
+  #     end
+  #     html_content.html_safe
+  # end
 
 end
