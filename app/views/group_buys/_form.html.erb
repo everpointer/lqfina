@@ -7,8 +7,8 @@
         <%= f.input :refund_nums, :label => "退款份数" %>
         <%= f.input :dsr, :label => "DSR评分" %>
         <%= f.input :stat_op_date, :label => "结算操作时间", :as => :string, :input_html => {:class => 'datepicker', :value => group_buy.stat_op_date} %>
-        <%= group_buy_action_buttons(group_buy) %>
       <% end %>
+      <%= group_buy_action_buttons(group_buy) %>
       <%= f.hidden_field 'product_name', value: product.name %>
       <%= f.hidden_field 'stat_date', value: stat_date %>
       <%= f.hidden_field 'settle_type' %>

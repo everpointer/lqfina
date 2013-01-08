@@ -13,7 +13,7 @@ module GroupBuysHelper
   end
 
   def get_month_of_year_month(stat_date)
-    Date.parse(stat_date + "-01").strftime("%m")
+    Date.parse(stat_date + "-01").strftime("%m月份") unless stat_date.nil?
   end
 
   def group_buy_action_buttons(group_buy)

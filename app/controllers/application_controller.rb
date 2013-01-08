@@ -15,13 +15,13 @@ class ApplicationController < ActionController::Base
     if stat_date =~ REX_STAT_DATE
       stat_date.slice(0, STAT_DATE_FORMAT_LENGTH)
     else
-      DateTime.now.strftime(STAT_DATE_FORMAT)
+      nil
     end
   end
 
   def parse_stat_date(stat_date)
     str_stat_date =  parse_stat_date_string(stat_date)
-    Date.parse(str_stat_date + "-01")
+    Date.parse(str_stat_date + "-01") unless str_stat_date.nil?
   end
 
 end
