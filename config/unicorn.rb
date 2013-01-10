@@ -22,7 +22,7 @@ worker_processes 4
 # Help ensure your application will always spawn in the symlinked
 # "current" directory that Capistrano sets up.
 rails_env = "production"
-APP_PATH = "/var/www/lqfina"
+APP_PATH = "/var/www/lq_fina/current"
 working_directory APP_PATH # available in 0.94.0+
 
 # listen on both a Unix domain socket and a TCP port,
