@@ -30,7 +30,10 @@ namespace :deploy do
   end
 
   task :update_symlink do
-    run "ln -s {shared_path}/public/system {current_path}/public/system"
+    run "ln -s #{shared_path}/public/system #{current_path}/public/system"
+  end
+  task :bundle_install, :roles => :app do
+    run "cd #{release_path} && bundle install"
   end
 
   task :start do ; end
@@ -41,4 +44,5 @@ namespace :deploy do
 end
 
 after "deploy:update_code", "deploy:copy_config_files" # 如果将database.yml放在shared下，请打开
-after "deploy:finalize_update", "deploy:update_symlink" # 如果有使用者上传文件到public/system, 请打开
+after "deploy:update_code", "deploy:bundle_install"
+# after "deploy:finalize_update", "deploy:update_symlink" # 如果有使用者上传文件到public/system, 请打开
