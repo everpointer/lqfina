@@ -1,5 +1,3 @@
-require 'bundler/capistrano'
-
 set :application, "lq_finance"
 set :repository,  "git@gitcafe.com:everpointer/lqfina.git"
 set :branch, "master"
@@ -46,3 +44,4 @@ end
 after "deploy:update_code", "deploy:copy_config_files" # 如果将database.yml放在shared下，请打开
 after "deploy:update_code", "deploy:bundle_install"
 # after "deploy:finalize_update", "deploy:update_symlink" # 如果有使用者上传文件到public/system, 请打开
+require 'bundler/capistrano'
