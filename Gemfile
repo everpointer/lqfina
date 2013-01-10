@@ -42,6 +42,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'jquery-rails'
 
 group :test, :development do
+    gem 'capistrano'
     gem 'rspec-rails'
     gem 'capybara', '~> 1.1.4'
     gem 'capybara-webkit'
