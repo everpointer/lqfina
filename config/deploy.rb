@@ -1,3 +1,9 @@
+require 'bundler/capistrano'
+
+default_run_options[:pty] = true
+set :rvm_ruby_string, 'ruby-1.9.3-p362'
+set :rvm_type, :user
+
 set :application, "lq_finance"
 set :repository,  "git@gitcafe.com:everpointer/lqfina.git"
 set :branch, "master"
@@ -20,28 +26,46 @@ role :db,  "oa.laicheap.com", :primary => true # This is where Rails migrations 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
+# unicorn.rb 路径
+set :unicorn_path, "#{current_path}/config/unicorn.rb"
+
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
-  task :copy_config_files, :role => [:app] do
-    db_conifg = "#{shared_path}/config/database.yml"
-    run "cp #{db_config} #{releases_path}/config/database.yml"
+  task :copy_config_files, :role => :app do
+    db_config = "#{shared_path}/database.yml"
+    run "cp #{db_config} #{release_path}/config/database.yml"
   end
 
   task :update_symlink do
     run "ln -s #{shared_path}/public/system #{current_path}/public/system"
   end
-  task :bundle_install, :roles => :app do
-    run "cd #{release_path} && bundle install"
+
+  task :start, :role => :app do
+    run "cd #{current_path}; RAILS_ENV=production unicorn_rails -c #{unicorn_path} -D"
+  end
+  task :stop, :role => :app do
+    run "kill -QUIT `cat #{current_path}/tmp/pids/unicorn.pid`"
   end
 
-  task :start do ; end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  desc "Restart Application"
+  task :restart, :roles => :app do
+    run "kill -USR2 `cat #{current_path}/tmp/pids/unicorn.pid`"
   end
 end
 
+# ======================================
+# Set the default env in case it's not loading automatically 
+# ======================================
+set :default_environment, { 
+  'PATH' => "/home/laoyufu/.rvm/gems/ruby-1.9.3-p362/bin:/home/laoyufu/.rvm/gems/ruby-1.9.3-p362@global/bin:/home/laoyufu/.rvm/rubies/ruby-1.9.3-p362/bin:/home/laoyufu/.rvm/bin:$PATH",
+  'GEM_HOME' => '/home/laoyufu/.rvm/gems/ruby-1.9.3-p362',
+  'GEM_PATH' => '/home/laoyufu/.rvm/gems/ruby-1.9.3-p362:/home/laoyufu/.rvm/gems/ruby-1.9.3-p362@global'
+}
+
+task :create_log_share do
+  run "mkdir -p #{shared_path}/log"
+end
+before 'deploy:update', :create_log_share
+# after "deploy:update_code", "deploy:install_bundler"
 after "deploy:update_code", "deploy:copy_config_files" # 如果将database.yml放在shared下，请打开
-after "deploy:update_code", "deploy:bundle_install"
 # after "deploy:finalize_update", "deploy:update_symlink" # 如果有使用者上传文件到public/system, 请打开
-require 'bundler/capistrano'
