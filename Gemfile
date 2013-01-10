@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://ruby.taobao.org'
 
 gem 'rails', '3.2.9'
 
@@ -8,9 +8,10 @@ gem 'rails', '3.2.9'
 gem 'sqlite3', :group => [:development, :test]
 # heroku doesn't support sqlite3 but PostgreSQL database => pg
 group :production do
-  gem 'pg'
+  gem 'mysql2'
   # performance tracking
   gem 'newrelic_rpm'
+  gem 'unicorn'
 end
 
 

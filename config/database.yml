@@ -18,8 +18,23 @@ test:
   pool: 5
   timeout: 5000
 
+#production:
+#  adapter:	postgresql
+#  encoding:	unicode
+#  pool:	5
+#  database:	d6sjv6jg5nnrq4
+#  username:	iheafmqbytlakd
+#  password:	djlS-UXYBdLELho9LWIRvCd8C9
+#  host:	ec2-54-243-248-219.compute-1.amazonaws.com
+#  port:	5432
+
+  
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter:	mysql2
+  encoding:	utf8
+  pool:	5
+  database:	lqfina
+  username:	root
+  password:	laoyufu008
+  host:		localhost
+  port:		3306	
