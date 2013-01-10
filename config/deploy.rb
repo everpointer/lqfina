@@ -27,7 +27,7 @@ role :db,  "oa.laicheap.com", :primary => true # This is where Rails migrations 
 # these http://github.com/rails/irs_process_scripts
 
 # unicorn.rb 路径
-set :unicorn_path, "#{current_path}/config/unicorn.rb"
+set :unicorn_config, "#{current_path}/config/unicorn.rb"
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
@@ -41,7 +41,7 @@ namespace :deploy do
   end
 
   task :start, :role => :app do
-    run "cd #{current_path}; RAILS_ENV=production unicorn_rails -c #{unicorn_path} -D"
+    run "cd #{current_path} && bundle exec unicorn_rails -c #{unicorn_config} -E production -D"
   end
   task :stop, :role => :app do
     run "kill -QUIT `cat #{current_path}/tmp/pids/unicorn.pid`"
