@@ -38,6 +38,8 @@ LqFinance::Application.configure do
 
   # Use a different logger for distributed setups
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  # 防止log文件越来越大，每星期使用一个log文件并备份
+  config.logger = Logger.new(config.paths["log"].first, 'weekly') # 或 daily,monthly
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store

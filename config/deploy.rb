@@ -63,10 +63,10 @@ set :default_environment, {
   'GEM_PATH' => '/home/laoyufu/.rvm/gems/ruby-1.9.3-p362:/home/laoyufu/.rvm/gems/ruby-1.9.3-p362@global'
 }
 
-task :create_log_share do
-  run "mkdir -p #{shared_path}/log"
+task :create_shared_dirs do
+  run "mkdir -p #{shared_path}/log; mkdir -p #{shared_path}/pids"
 end
-before 'deploy:update', :create_log_share
+before 'deploy:update', :create_share_dirs
 # after "deploy:update_code", "deploy:install_bundler"
 after "deploy:update_code", "deploy:copy_config_files" # 如果将database.yml放在shared下，请打开
 # after "deploy:finalize_update", "deploy:update_symlink" # 如果有使用者上传文件到public/system, 请打开
