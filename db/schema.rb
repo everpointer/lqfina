@@ -30,16 +30,16 @@ ActiveRecord::Schema.define(:version => 20130107092331) do
   end
 
   create_table "group_buys", :force => true do |t|
-    t.string   "product_name",                                                                       :null => false
-    t.string   "settle_type",       :limit => 11,                                                    :null => false
-    t.integer  "settle_nums",       :limit => 255,                                                   :null => false
-    t.decimal  "settle_money",                     :precision => 12, :scale => 2
-    t.integer  "refund_nums",                                                     :default => 0,     :null => false
-    t.string   "state",             :limit => 11,                                 :default => "未处理", :null => false
-    t.datetime "created_at",                                                                         :null => false
-    t.datetime "updated_at",                                                                         :null => false
+    t.string   "product_name",                                                                      :null => false
+    t.string   "settle_type",       :limit => 11,                                                   :null => false
+    t.integer  "settle_nums",                                                                       :null => false
+    t.decimal  "settle_money",                    :precision => 12, :scale => 2
+    t.integer  "refund_nums",                                                    :default => 0,     :null => false
+    t.string   "state",             :limit => 11,                                :default => "未处理", :null => false
+    t.datetime "created_at",                                                                        :null => false
+    t.datetime "updated_at",                                                                        :null => false
     t.float    "dsr"
-    t.decimal  "real_settle_money",                :precision => 12, :scale => 2
+    t.decimal  "real_settle_money",               :precision => 12, :scale => 2
     t.datetime "stat_op_date"
     t.string   "stat_date",         :limit => 20
   end
@@ -74,9 +74,9 @@ ActiveRecord::Schema.define(:version => 20130107092331) do
     t.date     "begin_date"
     t.date     "end_date"
     t.integer  "selled_nums"
+    t.integer  "partner_id",         :null => false
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
-    t.integer  "partner_id",         :null => false
   end
 
 end
