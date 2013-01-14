@@ -45,12 +45,12 @@ group :test, :development do
     gem 'capistrano'
     gem 'rspec-rails'
     gem 'capybara', '~> 1.1.4'
-    gem 'capybara-webkit'
+    # gem 'capybara-webkit'
     gem 'guard-rspec'
     gem 'spork'
     gem 'guard-spork'
     gem 'launchy'
-    #gem 'factory_girl_rails'
+    gem 'factory_girl_rails'
     gem 'database_cleaner'
 end
 

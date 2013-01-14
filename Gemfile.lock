@@ -51,9 +51,6 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
-    capybara-webkit (0.13.0)
-      capybara (>= 1.0.0, < 1.2)
-      json
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     coderay (1.0.8)
@@ -70,6 +67,11 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (4.1.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.1.0)
+      factory_girl (~> 4.1.0)
+      railties (>= 3.0.0)
     ffi (1.2.0)
     guard (1.5.4)
       listen (>= 0.4.2)
@@ -231,9 +233,9 @@ DEPENDENCIES
   bootstrap_helper
   capistrano
   capybara (~> 1.1.4)
-  capybara-webkit
   coffee-rails (~> 3.2.1)
   database_cleaner
+  factory_girl_rails
   guard-rspec
   guard-spork
   jquery-rails

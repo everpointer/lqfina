@@ -18,10 +18,10 @@ Spork.prefork do
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   # capybara-webkit
-  Capybara.javascript_driver = :webkit
-  Capybara.current_driver = Capybara.javascript_driver
-  # Capybara.javascript_driver = :selenium
-  # Capybara.current_driver = :selenium
+  # Capybara.javascript_driver = :webkit
+  # Capybara.current_driver = Capybara.javascript_driver
+  Capybara.javascript_driver = :selenium
+  Capybara.current_driver = :selenium
   Capybara.run_server = true
   Capybara.server_port = 7777
 
@@ -64,7 +64,7 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-
+  FactoryGirl.reload
 end
 
 # --- Instructions ---

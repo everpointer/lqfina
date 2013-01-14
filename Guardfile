@@ -12,6 +12,9 @@ guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAIL
   watch('test/test_helper.rb') { :test_unit }
   watch(%r{features/support/}) { :cucumber }
   watch('controllers/application_controller.rb')
+  # FactoryGirl factories
+  watch(%r{^spec/factories\.rb$}) { "spec" }
+  watch(%r{^spec/factories/(.+)_factory\.rb$}) { |m| ["spec/models/#{m[1]}_spec.rb", "spec/controllers/#{m[1].pluralize}_controller_spec.rb", "spec/requests/#{m[1].pluralize}_spec.rb"] }
 end
 
 guard 'rspec', :cli => "--drb" do

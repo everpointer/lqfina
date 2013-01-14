@@ -11,58 +11,19 @@ end
 
 describe "GroupBuys" do
   before :each do
-    @business1 = Business.create :nick_name => "MyString",
-      :mobile => "MyString",
-      :qq => "MyString"
+    @business1 = FactoryGirl.create(:business)
+    @partner1 = @business1.partner
+    @product1 = @partner1.product
+    @product2 = partner1.product
 
-    @partner1 = Partner.create :name => "MyString",
-      :busi_contact_person => "MyString",
-      :busi_contact_phone => "MyString",
-      :busi_contact_qq => "MyString",
-      :fina_contact_person => "MyString",
-      :fina_contact_phone => "MyString",
-      :openning_bank => "MyString",
-      :openning_bank_person => "MyString",
-      :bank_acct => "MyString",
-      :is_public_accounting => false,
-      :has_pay_announce => false,
-      :business_id => @business1.id
-
-    @product1 = Product.create :name => "测试项目1",
-      :foreign_product_id => '1',
-      :busi_type => "团购",
-      :platform => "聚划算",
-      :selled_price => 100,
-      :settle_price => 50,
-      :is_prepay => true,
-      :prepay_percentage => 0.5,
-      :begin_date => Date.today.prev_month,
-      :end_date => Date.today.next_month,
-      :selled_nums => 100,
-      :partner_id => @partner1.id
-
-    @product2 = Product.create :name => "测试项目2",
-      :foreign_product_id => '1',
-      :busi_type => "团购",
-      :platform => "聚划算",
-      :selled_price => 100,
-      :settle_price => 50,
-      :is_prepay => false,
-      :prepay_percentage => 0.5,
-      :begin_date => Date.today.prev_month,
-      :end_date => Date.today.next_month,
-      :selled_nums => 100,
-      :partner_id => @partner1.id
-
-
-    # @groupbuy2 = GroupBuy.create :product_name => "测试项目2", :settle_type => "结算", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
   end
 
 
   describe "GET /group_buys" do
     it "sees current month's settle record" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      @groupbuy1 = GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理", :dsr => 4.1, :real_settle_money => 0, :stat_date => DateTime.now.prev_month.strftime('%Y-%m')
+      # @groupbuy1 = GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理", :dsr => 4.1, :real_settle_money => 0, :stat_date => DateTime.now.prev_month.strftime('%Y-%m')
+      @groupbuy1 = FactoryGirl.create(:group_buy)
 
       visit group_buys_path
 
@@ -71,7 +32,6 @@ describe "GroupBuys" do
       current_path.should == group_buys_path
 
       within "#group_buy_record_table" do
-        # all("tr").should have_content "测试项目1"
         all("tbody tr").length.should == 1
       end
     end
@@ -126,7 +86,8 @@ describe "GroupBuys" do
     end
 
     it 'confirms handlement of checked groupbuy records', :js => true do
-      @groupbuy1 = GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理", :dsr => 4.1, :real_settle_money => 0, :stat_date => DateTime.now.prev_month.strftime('%Y-%m')
+      # @groupbuy1 = GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理", :dsr => 4.1, :real_settle_money => 0, :stat_date => DateTime.now.prev_month.strftime('%Y-%m')
+      @groupbuy1 = FactoryGirl.create(:group_buy)
       visit group_buys_path
 
       search_a_product "测试项目1"
@@ -147,38 +108,5 @@ describe "GroupBuys" do
         find("tbody tr:first td.settle_state").text.should == "未处理"
       end
     end
-
-    # todo: support update specified group_buy record
-    # it 'updates a settle record' do
-    #   @groupbuy1 = GroupBuy.create :product_name => @product2.name, :settle_type => "结算", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理"
-
-    #   visit group_buys_path
-
-    #   search_a_product @product2.name
-
-    #   within ".group_buy_table_wrapper" do
-    #     find("tbody tr:first").click
-    #   end
-
-    #   within ".product_box" do
-    #     fill_in 'group_buy_settle_nums', :with => 1002
-    #     fill_in 'group_buy_refund_nums', :with => 101
-
-    #     click_button "修改"
-    #   end
-
-    #   current_path.should == group_buys_path
-
-    #   within "#group_buy_record_table" do
-    #     all("tbody tr").length.should > 0
-    #     all("tbody tr")[0].find(".product_name").text.should == @product2.name
-    #     all("tbody tr")[0].find(".settle_nums").text.should == "1002"
-    #     all("tbody tr")[0].find(".refund_nums").text.should == "101"
-
-    #     settle_money = @product2.settle_price * 1002
-    #     all("tbody tr")[0].find(".settle_money").text.should == settle_money.to_s
-    #   end
-    # end
-
   end
 end
