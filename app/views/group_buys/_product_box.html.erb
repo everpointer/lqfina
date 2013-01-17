@@ -24,7 +24,8 @@
               <dd><%= @current_product.selled_nums %></dd>
             </dl>
         </div>
-
-        <%= render :partial => 'form', :locals => { :group_buy => @group_buy, :product => @current_product, :stat_date => @stat_date } %>
+        <% unless @stat_date.blank? %>
+          <%= render :partial => 'form', :locals => { :group_buy => @group_buy, :product => @current_product, :stat_date => @stat_date } %>
+        <% end %>
     </div>
 <% end %>
