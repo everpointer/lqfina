@@ -15,5 +15,9 @@ FactoryGirl.define do
     end_date  Date.today.next_month
     selled_nums  100
     association :partner
+
+    factory :unprepay_product do
+        is_prepay false
+    end
   end
 end

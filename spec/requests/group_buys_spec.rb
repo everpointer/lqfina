@@ -10,24 +10,20 @@ def search_a_product(product_name)
 end
 
 describe "GroupBuys" do
-  before :each do
-    @business1 = FactoryGirl.create(:business)
-    @partner1 = @business1.partner
-    @product1 = @partner1.product
-    @product2 = partner1.product
-
-  end
-
-
   describe "GET /group_buys" do
+    let!(:business1) { FactoryGirl.create(:business) }
+    let!(:partner1) { FactoryGirl.create(:partner, business: business1) }
+    let!(:product1) { FactoryGirl.create(:product, partner: partner1) }
+    let!(:product2) { FactoryGirl.create(:unprepay_product, partner: partner1) }
+
     it "sees current month's settle record" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
       # @groupbuy1 = GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理", :dsr => 4.1, :real_settle_money => 0, :stat_date => DateTime.now.prev_month.strftime('%Y-%m')
-      @groupbuy1 = FactoryGirl.create(:group_buy)
+      @groupbuy1 = FactoryGirl.create(:group_buy, product: product1)
 
       visit group_buys_path
 
-      search_a_product "测试项目1"
+      search_a_product product1.name
 
       current_path.should == group_buys_path
 
@@ -39,7 +35,7 @@ describe "GroupBuys" do
     it "adds a product's prepay record" do
       visit group_buys_path
 
-      search_a_product @product1.name
+      search_a_product product1.name
 
       current_path.should == group_buys_path
 
@@ -51,10 +47,10 @@ describe "GroupBuys" do
 
       within "#group_buy_record_table" do
         all("tbody tr").length.should > 0
-        all("tbody tr")[0].find(".product_name").text.should == @product1.name
-        all("tbody tr")[0].find(".settle_nums").text.should == @product1.selled_nums.to_s
+        all("tbody tr")[0].find(".product_name").text.should == product1.name
+        all("tbody tr")[0].find(".settle_nums").text.should == product1.selled_nums.to_s
 
-        settle_money = @product1.prepay_percentage * @product1.selled_nums * @product1.settle_price
+        settle_money = product1.prepay_percentage * product1.selled_nums * product1.settle_price
         all("tbody tr")[0].find(".settle_money").text.should == '%0.2f' % settle_money
       end
     end
@@ -62,10 +58,9 @@ describe "GroupBuys" do
     it "adds a product's settle record" do
       visit group_buys_path
 
-      search_a_product @product2.name
+      search_a_product product2.name
 
       current_path.should == group_buys_path
-
       within "#new_group_buy" do
         fill_in 'group_buy_settle_nums', :with => 1001
         fill_in 'group_buy_refund_nums', :with => 100
@@ -76,21 +71,21 @@ describe "GroupBuys" do
 
       within "#group_buy_record_table" do
         all("tbody tr").length.should > 0
-        all("tbody tr")[0].find(".product_name").text.should == @product2.name
+        all("tbody tr")[0].find(".product_name").text.should == product2.name
         all("tbody tr")[0].find(".settle_nums").text.should == "1001"
         all("tbody tr")[0].find(".refund_nums").text.should == "100"
 
-        settle_money = @product2.settle_price * 1001
+        settle_money = product2.settle_price * 1001
         all("tbody tr")[0].find(".settle_money").text.should == '%0.2f' % settle_money
       end
     end
 
     it 'confirms handlement of checked groupbuy records', :js => true do
       # @groupbuy1 = GroupBuy.create :product_name => "测试项目1", :settle_type => "预付", :settle_nums => 100, :settle_money => 1000, :refund_nums => 10, :state => "未处理", :dsr => 4.1, :real_settle_money => 0, :stat_date => DateTime.now.prev_month.strftime('%Y-%m')
-      @groupbuy1 = FactoryGirl.create(:group_buy)
+      @groupbuy1 = FactoryGirl.create(:group_buy, product: product1)
       visit group_buys_path
 
-      search_a_product "测试项目1"
+      search_a_product product1.name
 
       current_path.should == group_buys_path
 

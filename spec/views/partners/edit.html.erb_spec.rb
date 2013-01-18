@@ -7,7 +7,6 @@ describe "partners/edit" do
       :mobile => "MyString",
       :qq => "MyString"
     ).as_new_record)
-    print @business.inspect
 
     @partner = assign(:partner, stub_model(Partner,
       :name => "MyString",

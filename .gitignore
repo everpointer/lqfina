@@ -19,3 +19,5 @@ tmp
 public/uploads/
 public/source_maps/
 public/assets/
+
+.idea/

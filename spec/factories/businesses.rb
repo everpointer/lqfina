@@ -6,6 +6,5 @@ FactoryGirl.define do
     nick_name "MyString"
     mobile "MyString"
     qq "MyString"
-    association :partner
   end
 end
