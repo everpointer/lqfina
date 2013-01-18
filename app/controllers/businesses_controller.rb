@@ -104,7 +104,6 @@ class BusinessesController < ApplicationController
           if group_buys.length > 0
             settle_nums = group_buys[0][:settle_nums]
             dsr_rate = group_buys[0].dsr_rate 
-            # 业务员提成计算公式: (团购 - 结算金额 -1元码费) / 4 * dsr动态评分
             bonus = (selled_price - settle_price - 1) * settle_nums / 4 * dsr_rate
             @product_stat_result << {:product_name => product.name, :bonus => bonus}
           end

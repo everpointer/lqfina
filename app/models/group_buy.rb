@@ -16,7 +16,10 @@ class GroupBuy < ActiveRecord::Base
   before_create :set_stat_op_date
 
   def dsr_rate
-    if dsr < 4.0
+    # dsr_date为空或者0时，标示用户没有评价，则统计业务员业绩时按100%计算
+    if dsr.blank? || dsr == 0.0
+      1
+    elsif dsr > 0.0 && dsr < 4.0
       0
     elsif dsr >= 4.0 && dsr < 4.3
       0.5
