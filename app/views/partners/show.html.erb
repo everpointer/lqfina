@@ -19,9 +19,9 @@
   <dt><strong><%= model_class.human_attribute_name(:openning_bank) %>:</strong></dt>
   <dd><%= @partner.openning_bank.empty? ? "无" : @partner.openning_bank %></dd>
   <dt><strong><%= model_class.human_attribute_name(:openning_bank_person) %>:</strong></dt>
-  <dd><%= @partner.openning_bank_person %></dd>
+  <dd><%= @partner.openning_bank_person.empty? ? "无" : @partner.openning_bank_person %></dd>
   <dt><strong><%= model_class.human_attribute_name(:bank_acct) %>:</strong></dt>
-  <dd><%= @partner.bank_acct %></dd>
+  <dd><%= @partner.bank_acct.empty? ? "无" : @partner.bank_acct %></dd>
   <dt><strong><%= model_class.human_attribute_name(:is_public_accounting) %>:</strong></dt>
   <dd><%= convert_boolean_cn(@partner.is_public_accounting) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:has_pay_announce) %>:</strong></dt>
