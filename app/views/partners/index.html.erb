@@ -53,7 +53,7 @@
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_partner_path,
-            :class => 'btn btn-primary span1' %>
+            :class => 'btn btn-primary span1 margin-none' %>
 <%= content_tag :span, :class => "span6" do %>
   <%= paginate @partners %>
 <% end %>
