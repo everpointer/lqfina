@@ -12,7 +12,7 @@ before_script: sh -e /etc/init.d/xvfb start
 script:
  - "cp config/database.yml.example.mysql config/database.yml 2>&1"
  - "time bundle exec rake db:drop db:create db:schema:load --trace 2>&1"
- - "time bundle exec rake travis:parallel"
+ - "bundle exec rspec spec"
 
 env:
  - UNIT_TEST=1
