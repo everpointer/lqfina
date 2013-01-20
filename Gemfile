@@ -59,6 +59,11 @@ group :development do
   gem 'meta_request', '0.2.0'
 end
 
+group :test do
+  # make selenium work travis-ci xvfb
+  gem "selenium-webdriver", "~> 2.14.0"
+end 
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
