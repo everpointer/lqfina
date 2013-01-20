@@ -7,7 +7,9 @@ rvm: 1.9.3
 # before_install: gem uninstall ffi -a
 
 # request headless test
-before_script: sh -e /etc/init.d/xvfb start
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 
 script:
  - "cp config/database.yml.example.mysql config/database.yml 2>&1"
