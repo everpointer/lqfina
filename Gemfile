@@ -61,7 +61,7 @@ end
 
 group :test do
   # make selenium work travis-ci xvfb
-  gem "selenium-webdriver", "~> 2.24.0"
+  gem "selenium-webdriver", "~> 2.27.2"
 end 
 
 # To use ActiveModel has_secure_password
