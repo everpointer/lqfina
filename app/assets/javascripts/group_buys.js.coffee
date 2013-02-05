@@ -64,6 +64,9 @@ jQuery ->
                 local_confirm_record(local_id_list, handled_id_list, confirm_flag)
 
     export_checked_finance_records = ->
+        if check_export_operation() is false
+            alert("导出结果中有未处理记录,请先处理掉")
+            return false
         id_list = get_checked_groupbuy_id_list()
         window.location = "group_buys/export_finance_records?id_list=" + id_list.join(',')
 
@@ -97,7 +100,8 @@ jQuery ->
             id = $(this).find("td.check_box input[type='checkbox']:checked").next('input.groupbuy_id').val()
             product_name = $(this).find("td.product_name").text()
             stat_date = $(this).find("td.update_date").text().substr(0,7)
-            {"id": id,  "product_name": product_name, "stat_date": stat_date}
+            settle_state = $(this).find("td.settle_state").text()
+            {"id": id,  "product_name": product_name, "stat_date": stat_date, "settle_state": settle_state }
         ).get()
 
     get_checked_groupbuy_id_list = ->
@@ -111,5 +115,12 @@ jQuery ->
             parseInt(this.value)
 
         local_id_list = local_id_list.toArray()
+
+    check_export_operation = ->
+        records = get_checked_groupbuy_record()
+        result = true
+        for record in records
+            result = false if record.settle_state is "未处理"
+        result
 
 

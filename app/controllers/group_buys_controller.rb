@@ -82,7 +82,7 @@ class GroupBuysController < ApplicationController
           :online_date => record.product.begin_date,
           :product_name => record.product_name,
           :platform => record.product.platform,
-          :nth_record => index+1,
+          :nth_record => record.product_index,
           :fina_contact_phone => partner.fina_contact_phone }
         export_content << result.values.join("\t") + "\n"
       end

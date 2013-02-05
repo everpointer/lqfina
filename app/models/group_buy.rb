@@ -10,6 +10,7 @@ class GroupBuy < ActiveRecord::Base
 
   scope :month_stat, ->(stat_date) { where(:stat_date => stat_date) }
   scope :settled, -> { where(settle_type: "结算", state: '已处理') }
+  scope :with_product_index, -> { where("real_settle_money > 0 and state = '已处理'").order("stat_op_date") }
 
   before_validation :make_settle_type
   before_save :make_money
@@ -28,6 +29,14 @@ class GroupBuy < ActiveRecord::Base
     else
       1
     end
+  end
+
+  def product_index
+    record_index = nil
+    product.group_buys.with_product_index.each_with_index do |group, index|
+      record_index = index + 1 if group.id == self.id
+    end
+    record_index
   end
 
   protected
