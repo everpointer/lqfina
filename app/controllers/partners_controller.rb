@@ -3,8 +3,8 @@ class PartnersController < ApplicationController
   # GET /partners
   # GET /partners.json
   def index
-    # @partners = Partner.order("name desc").all
-    @partners = Partner.order("name desc").page(params[:page]).per(10)
+    @partners = Partner.order("name desc").all
+    # @partners = Partner.order("name desc").page(params[:page]).per(10)
 
     respond_to do |format|
       format.html # index.html.erb
