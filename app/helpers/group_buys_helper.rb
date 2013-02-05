@@ -48,4 +48,8 @@ module GroupBuysHelper
   #     html_content.html_safe
   # end
 
+  def product_collection(products)
+    products.collect { |p| p[:name] + "{" + p[:foreign_product_id] + "}" }
+  end
+
 end

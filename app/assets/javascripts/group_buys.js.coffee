@@ -31,10 +31,18 @@ jQuery ->
             checkbox.attr('checked', !checked)
             return false
 
-    $('.datepicker').datepicker({
-        "format" : 'yyyy-mm-dd'
-    })
+    # $('.datepicker').datepicker
+        # "format" : 'yyyy-mm-dd'
 
+    # set typeahead for group_buy product_name input
+    $("#product_name_list.typeahead").typeahead
+        source: ->
+            partner_collection = JSON.parse($("#product_collection").attr("value"))
+            # Object.keys(partner_collection)
+        updater: (item) ->
+            # partner_collection = JSON.parse $("#partner_collection").val()
+            $("#product_name").val item.split("{")[0]
+            item
 
     # $("#group_buy_table_wrapper tbody tr.group_buy").click (event) ->
     #     event.preventDefault()

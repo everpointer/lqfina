@@ -66,4 +66,8 @@ module ApplicationHelper
     end
     name
   end
+
+  def hidden_tag(tag)
+    content_tag :span, "", value: tag[:value], id: tag[:id], class: "hidden"
+  end
 end

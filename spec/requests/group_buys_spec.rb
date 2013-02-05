@@ -3,14 +3,15 @@ require 'spec_helper'
 
 def search_a_product(product_name)
   within "#stat_action_bar" do
-        fill_in "stat_date",  :with => DateTime.now.prev_month.strftime('%Y-%m')
-        select product_name, :from => 'product_list'
-        click_button '查询'
+    fill_in "stat_date",  :with => DateTime.now.prev_month.strftime('%Y-%m')
+    fill_in "product_name_list", :with => product_name
   end 
+  first(".typeahead.dropdown-menu > li").click
+  click_button '查询'
 end
 
 describe "GroupBuys" do
-  describe "GET /group_buys" do
+  describe "GET /group_buys", js: true do
     let!(:business1) { FactoryGirl.create(:business) }
     let!(:partner1) { FactoryGirl.create(:partner, business: business1) }
     let!(:product1) { FactoryGirl.create(:product, partner: partner1) }

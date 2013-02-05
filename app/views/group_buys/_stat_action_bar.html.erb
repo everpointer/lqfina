@@ -1,10 +1,9 @@
 <div class="stat_wrapper stat_action_bar_wrapper">
     <form action="/group_buys" class="form_inline" id="stat_action_bar">
-        <input type="text" id="stat_date" name="stat_date" placeholder="统计年月,格式：yyyy-mm" value=<%= @stat_date %> >
-        <select name="product_name" id="product_list" >
-            <option value="">请选择一个项目</option>
-            <%= options_from_collection_for_select(@total_product_list, "name", "name") %>
-        </select>
+        <input type="text" id="stat_date" name="stat_date" placeholder="统计年月,格式：yyyy-mm" class="datepicker" value=<%= @stat_date %> >
+        <%= text_field_tag :product_name_list, nil, :placeholder => "输入项目名,自动补全", :class => "typeahead span4", "data-provide" => "typeahead" %>
+        <%= hidden_field_tag :product_name %>
         <button id="search_stat_result" class="btn btn-primary">查询</button>
     </form>
+    <%= hidden_tag id: "product_collection", value: product_collection(@total_product_list).to_json %>
 </div>
